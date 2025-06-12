@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Login from '../pages/Login'
 import Dashboard from '../pages/Dashboard'
+import ProjectDetails from '../pages/ProjectDetails'
 
 const isAuthenticated = () => {
     return !!localStorage.getItem('token')
@@ -18,7 +19,6 @@ export default function AppRoutes() {
             <Routes>
                 <Route path="/login" element={<Login />} />
 
-                {/* Rotas protegidas */}
                 <Route
                     path="/dashboard"
                     element={
@@ -28,7 +28,15 @@ export default function AppRoutes() {
                     }
                 />
 
-                {/* Redireciona para login por padrão */}
+                <Route
+                    path="/projects/:id"
+                    element={
+                        <PrivateRoute>
+                            <ProjectDetails />
+                        </PrivateRoute>
+                    }
+                />
+
                 <Route path="*" element={<Navigate to="/login" replace />} />
             </Routes>
         </BrowserRouter>
