@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Box, Container, Typography, Button, Grid, Card, Chip } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import styles from './styles'
+import ProjectDateChips from '../../components/atoms/ProjectDateChips'
 
 const mockProjects = [
     {
@@ -13,7 +14,7 @@ const mockProjects = [
         creator_id: 101,
         collaborators: [102, 103],
     },
-        {
+    {
         id: 1,
         name: 'Projeto Alpha',
         description: 'Descrição do projeto Alpha',
@@ -22,7 +23,7 @@ const mockProjects = [
         creator_id: 101,
         collaborators: [102, 103],
     },
-        {
+    {
         id: 1,
         name: 'Projeto Alpha',
         description: 'Descrição do projeto Alpha',
@@ -84,8 +85,10 @@ export default function Dashboard() {
                                     </Box>
 
                                     <Box display="flex" justifyContent="space-between" mt={2}>
-                                        <Chip label={`Início: ${project.start_date}`} color="info" size="small" sx={styles.chipStart} />
-                                        <Chip label={`Fim: ${project.end_date}`} color="warning" size="small" sx={styles.chipEnd} />
+                                        <ProjectDateChips
+                                            startDate={project.start_date}
+                                            endDate={project.end_date}
+                                        />
                                     </Box>
                                 </Card>
                             </Grid>
