@@ -82,6 +82,7 @@ export default function ProjectForm() {
               register={register}
               rules={{ required: 'Campo obrigatório' }}
               errors={errors}
+              hideLabel
             />
             <InputField
               label="Data de Fim"
@@ -94,6 +95,7 @@ export default function ProjectForm() {
                   !startDate || value >= startDate || 'A data de fim deve ser posterior à data de início',
               }}
               errors={errors}
+              hideLabel
             />
 
             <Box mt={2}>

@@ -1,14 +1,14 @@
 import React from 'react'
 import { Typography, TextField } from '@mui/material'
 
-export default function InputField({ label, register, name, rules, errors, type = 'text', sxLabel }) {
+export default function InputField({ label, register, name, rules, errors, type = 'text', sxLabel, hideLabel }) {
     return (
         <>
             <Typography variant="subtitle1" sx={sxLabel}>
                 {label}
             </Typography>
             <TextField
-                label={label}
+                label={!hideLabel && label}
                 fullWidth
                 margin="normal"
                 type={type}
