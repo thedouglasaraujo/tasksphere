@@ -9,7 +9,7 @@ import {
 import { useNavigate, useParams } from 'react-router-dom'
 import InputField from '../../components/atoms/InputField'
 import PrimaryButton from '../../components/atoms/PrimaryButton'
-import CancelButton from '../../components/atoms/CancelButton'
+import TextButton from '../../components/atoms/TextButton'
 import styles from './styles'
 
 const mockProjects = {
@@ -98,7 +98,7 @@ export default function ProjectForm() {
 
             <Box mt={2}>
               <Stack direction="row" spacing={2} sx={styles.buttonRow}>
-                <CancelButton onClick={() => navigate(-1)}>Cancelar</CancelButton>
+                <TextButton onClick={() => navigate(-1)}>Cancelar</TextButton>
                 <PrimaryButton label="Salvar" type="submit" />
               </Stack>
             </Box>
