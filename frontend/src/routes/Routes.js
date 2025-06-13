@@ -4,6 +4,7 @@ import Login from '../pages/Login'
 import Dashboard from '../pages/Dashboard'
 import ProjectDetails from '../pages/ProjectDetails'
 import ProjectForm from '../pages/ProjectForm'
+import TaskForm from '../pages/TaskForm'
 
 const isAuthenticated = () => {
     return !!localStorage.getItem('token')
@@ -30,6 +31,15 @@ export default function AppRoutes() {
                 />
 
                 <Route
+                    path="/projects/new"
+                    element={
+                        <PrivateRoute>
+                            <ProjectForm />
+                        </PrivateRoute>
+                    }
+                />
+
+                <Route
                     path="/projects/:id"
                     element={
                         <PrivateRoute>
@@ -48,10 +58,19 @@ export default function AppRoutes() {
                 />
 
                 <Route
-                    path="/projects/new"
+                    path="/projects/:projectId/tasks/new"
                     element={
                         <PrivateRoute>
-                            <ProjectForm />
+                            <TaskForm />
+                        </PrivateRoute>
+                    }
+                />
+
+                <Route
+                    path="/tasks/:taskId/edit"
+                    element={
+                        <PrivateRoute>
+                            <TaskForm />
                         </PrivateRoute>
                     }
                 />
