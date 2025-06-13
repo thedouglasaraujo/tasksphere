@@ -5,6 +5,7 @@ import Dashboard from '../pages/Dashboard'
 import ProjectDetails from '../pages/ProjectDetails'
 import ProjectForm from '../pages/ProjectForm'
 import TaskForm from '../pages/TaskForm'
+import CollaboratorsManager from '../pages/CollaboratorsManager'
 
 const isAuthenticated = () => {
     return !!localStorage.getItem('token')
@@ -53,6 +54,15 @@ export default function AppRoutes() {
                     element={
                         <PrivateRoute>
                             <ProjectForm />
+                        </PrivateRoute>
+                    }
+                />
+
+                <Route
+                    path="/projects/:id/collaborators"
+                    element={
+                        <PrivateRoute>
+                            <CollaboratorsManager />
                         </PrivateRoute>
                     }
                 />
