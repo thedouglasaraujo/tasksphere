@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Login from '../pages/Login'
 import Dashboard from '../pages/Dashboard'
 import ProjectDetails from '../pages/ProjectDetails'
+import ProjectForm from '../pages/ProjectForm'
 
 const isAuthenticated = () => {
     return !!localStorage.getItem('token')
@@ -33,6 +34,24 @@ export default function AppRoutes() {
                     element={
                         <PrivateRoute>
                             <ProjectDetails />
+                        </PrivateRoute>
+                    }
+                />
+
+                <Route
+                    path="/projects/:id/edit"
+                    element={
+                        <PrivateRoute>
+                            <ProjectForm />
+                        </PrivateRoute>
+                    }
+                />
+
+                <Route
+                    path="/projects/new"
+                    element={
+                        <PrivateRoute>
+                            <ProjectForm />
                         </PrivateRoute>
                     }
                 />
