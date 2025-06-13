@@ -68,9 +68,16 @@ export default function ProjectDetails() {
                     />
                 </Box>
 
-                <Typography variant="h6" sx={styles.title} mt={4}>
-                    Colaboradores
-                </Typography>
+                <Divider sx={{ my: 4 }} />
+
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Typography variant="h6" sx={styles.title}>
+                        Colaboradores
+                    </Typography>
+                    <TextButton onClick={() => navigate(`/projects/${id}/collaborators`)}>
+                        Gerenciar Colaboradores
+                    </TextButton>
+                </Box>
 
                 <CollaboratorsList collaborators={mockProject.collaborators} />
 
