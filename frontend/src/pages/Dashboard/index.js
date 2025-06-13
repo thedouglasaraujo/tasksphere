@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { Box, Container, Typography, Button, Grid, Card, Chip } from '@mui/material'
+import { Box, Container, Typography, Grid, Card } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import styles from './styles'
 import ProjectDateChips from '../../components/atoms/ProjectDateChips'
+import PrimaryButton from '../../components/atoms/PrimaryButton'
 
 const mockProjects = [
     {
@@ -54,14 +55,10 @@ export default function Dashboard() {
                     <Typography variant="h4" sx={styles.headerTitle}>
                         Meus Projetos
                     </Typography>
-                    <Button
-                        variant="contained"
-                        size="large"
-                        sx={styles.buttonNewProject}
+                    <PrimaryButton
+                        label="Novo Projeto"
                         onClick={() => navigate('/projects/new')}
-                    >
-                        Novo Projeto
-                    </Button>
+                    />
                 </Box>
 
                 {projects.length === 0 ? (
