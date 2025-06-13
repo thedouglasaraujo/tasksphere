@@ -13,6 +13,7 @@ import CollaboratorsList from '../../components/molecules/CollaboratorsList'
 import TaskList from '../../components/organisms/TaskList'
 import ProjectDateChips from '../../components/atoms/ProjectDateChips'
 import ProjectActionsButtons from '../../components/atoms/ProjectActionsButtons'
+import TextButton from '../../components/atoms/TextButton'
 
 const mockProject = {
     id: 1,
@@ -75,9 +76,14 @@ export default function ProjectDetails() {
 
                 <Divider sx={{ my: 4 }} />
 
-                <Typography variant="h6" sx={styles.title}>
-                    Tarefas
-                </Typography>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Typography variant="h6" sx={styles.title}>
+                        Tarefas
+                    </Typography>
+                    <TextButton onClick={() => navigate(`/projects/${id}/tasks/new`)}>
+                        + Adicionar Tarefa
+                    </TextButton>
+                </Box>
 
                 <TaskList tasks={mockProject.tasks} />
             </Container>

@@ -11,6 +11,10 @@ const projectDetailsStyles = {
     contentContainer: {
         width: '75%',
     },
+    headerTitle: {
+        fontWeight: 700,
+        color: '#2C3E50',
+    },
     title: {
         fontWeight: 700,
         color: '#2C3E50',
