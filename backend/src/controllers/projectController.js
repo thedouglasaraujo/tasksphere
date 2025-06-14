@@ -43,7 +43,16 @@ module.exports = {
     async show(req, res) {
         try {
             const project = await Project.findByPk(req.params.id, {
-                include: [{ association: 'collaborators', attributes: ['id', 'name', 'email'] }]
+                include: [
+                    {
+                        association: 'collaborators',
+                        attributes: ['id', 'name', 'email']
+                    },
+                    {
+                        association: 'tasks',
+                        attributes: ['id', 'title', 'status', 'due_date', 'image_url']
+                    }
+                ]
             });
 
             if (!project) return res.status(404).json({ error: 'Projeto não encontrado' });
