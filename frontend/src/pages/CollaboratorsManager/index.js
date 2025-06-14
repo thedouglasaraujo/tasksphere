@@ -1,26 +1,49 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import {
     Box, Container, Typography, Divider, List, ListItem, ListItemText,
     IconButton
-} from '@mui/material'
-import { useParams } from 'react-router-dom'
-import DeleteIcon from '@mui/icons-material/Delete'
-import styles from './styles'
-import AddCollaboratorModal from '../../components/organisms/AddCollaboratorModal'
-import PrimaryButton from '../../components/atoms/PrimaryButton'
+} from '@mui/material';
+import { useParams } from 'react-router-dom';
+import DeleteIcon from '@mui/icons-material/Delete';
+import styles from './styles';
+import AddCollaboratorModal from '../../components/organisms/AddCollaboratorModal';
+import PrimaryButton from '../../components/atoms/PrimaryButton';
+import { getCollaborators, addCollaborator, removeCollaborator } from '../../services/projectService';
 
 export default function CollaboratorsManager() {
-    const { id } = useParams()
-    const [collaborators, setCollaborators] = useState([{ id: 102 }, { id: 103 }])
-    const [modalOpen, setModalOpen] = useState(false)
+    const { id } = useParams();
+    const [collaborators, setCollaborators] = useState([]);
+    const [modalOpen, setModalOpen] = useState(false);
 
-    const handleRemove = (userId) => {
-        console.log('Removendo colaborador:', userId)
-    }
+    useEffect(() => {
+        const fetchCollaborators = async () => {
+            try {
+                const data = await getCollaborators(id);
+                setCollaborators(data);
+            } catch (err) {
+                console.log('Erro ao buscar colaboradores:', err);
+            }
+        };
+        fetchCollaborators();
+    }, [id]);
 
-    const handleAddCollaborator = (form) => {
-        console.log('Adicionar colaborador:', form)
-    }
+    const handleAddCollaborator = async (data) => {
+        try {
+            await addCollaborator(id, data);
+            setModalOpen(false);
+        } catch (err) {
+            console.log('Erro ao adicionar colaborador:', err);
+        }
+    };
+
+    const handleRemoveCollaborator = async (userId) => {
+        try {
+            await removeCollaborator(id, userId);
+            setCollaborators(collaborators.filter(c => c.id !== userId));
+        } catch (err) {
+            console.log('Erro ao remover colaborador:', err);
+        }
+    };
 
     return (
         <Box sx={styles.containerBox}>
@@ -42,12 +65,12 @@ export default function CollaboratorsManager() {
                         <ListItem
                             key={c.id}
                             secondaryAction={
-                                <IconButton edge="end" onClick={() => handleRemove(c.id)}>
+                                <IconButton edge="end" onClick={() => handleRemoveCollaborator(c.id)}>
                                     <DeleteIcon />
                                 </IconButton>
                             }
                         >
-                            <ListItemText primary={`Usuário ${c.id}`} secondary={c.name} />
+                            <ListItemText primary={c.name} />
                         </ListItem>
                     ))}
                 </List>
@@ -59,5 +82,5 @@ export default function CollaboratorsManager() {
                 onAdd={handleAddCollaborator}
             />
         </Box>
-    )
+    );
 }
