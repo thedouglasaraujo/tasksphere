@@ -7,6 +7,7 @@ import ProjectForm from '../pages/ProjectForm'
 import TaskForm from '../pages/TaskForm'
 import CollaboratorsManager from '../pages/CollaboratorsManager'
 import ErrorPage from '../pages/ErrorPage'
+import ProtectedLayout from '../layouts/ProtectedLayout'
 
 const isAuthenticated = () => {
     return !!localStorage.getItem('token')
@@ -23,67 +24,21 @@ export default function AppRoutes() {
                 <Route path="/login" element={<Login />} />
 
                 <Route
-                    path="/dashboard"
+                    path="/"
                     element={
                         <PrivateRoute>
-                            <Dashboard />
+                            <ProtectedLayout />
                         </PrivateRoute>
                     }
-                />
-
-                <Route
-                    path="/projects/new"
-                    element={
-                        <PrivateRoute>
-                            <ProjectForm />
-                        </PrivateRoute>
-                    }
-                />
-
-                <Route
-                    path="/projects/:id"
-                    element={
-                        <PrivateRoute>
-                            <ProjectDetails />
-                        </PrivateRoute>
-                    }
-                />
-
-                <Route
-                    path="/projects/:id/edit"
-                    element={
-                        <PrivateRoute>
-                            <ProjectForm />
-                        </PrivateRoute>
-                    }
-                />
-
-                <Route
-                    path="/projects/:id/collaborators"
-                    element={
-                        <PrivateRoute>
-                            <CollaboratorsManager />
-                        </PrivateRoute>
-                    }
-                />
-
-                <Route
-                    path="/projects/:projectId/tasks/new"
-                    element={
-                        <PrivateRoute>
-                            <TaskForm />
-                        </PrivateRoute>
-                    }
-                />
-
-                <Route
-                    path="/tasks/:taskId/edit"
-                    element={
-                        <PrivateRoute>
-                            <TaskForm />
-                        </PrivateRoute>
-                    }
-                />
+                >
+                    <Route path="dashboard" element={<Dashboard />} />
+                    <Route path="projects/new" element={<ProjectForm />} />
+                    <Route path="projects/:id" element={<ProjectDetails />} />
+                    <Route path="projects/:id/edit" element={<ProjectForm />} />
+                    <Route path="projects/:id/collaborators" element={<CollaboratorsManager />} />
+                    <Route path="projects/:projectId/tasks/new" element={<TaskForm />} />
+                    <Route path="tasks/:taskId/edit" element={<TaskForm />} />
+                </Route>
 
                 <Route path="/forbidden" element={<ErrorPage code={403} />} />
                 <Route path="/error" element={<ErrorPage code={500} />} />
