@@ -13,7 +13,6 @@ const isAuthenticated = () => {
 }
 
 function PrivateRoute({ children }) {
-    return children
     return isAuthenticated() ? children : <Navigate to="/login" replace />
 }
 
