@@ -1,56 +1,62 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import {
     Box,
     Container,
     Stack,
     Typography,
     MenuItem,
-} from '@mui/material'
-import { useForm } from 'react-hook-form'
-import { useNavigate, useParams } from 'react-router-dom'
-import InputField from '../../components/atoms/InputField'
-import PrimaryButton from '../../components/atoms/PrimaryButton'
-import CancelButton from '../../components/atoms/TextButton'
-import styles from './styles'
+} from '@mui/material';
+import { useForm } from 'react-hook-form';
+import { useNavigate, useParams } from 'react-router-dom';
+import InputField from '../../components/atoms/InputField';
+import PrimaryButton from '../../components/atoms/PrimaryButton';
+import CancelButton from '../../components/atoms/TextButton';
+import styles from './styles';
+import { getTaskById, updateTask, createTask } from '../../services/taskService';
 
-const mockTasks = {
-    1: {
-        title: 'Corrigir bugs',
-        status: 'Em andamento',
-        due_date: '2025-06-30',
-        image_url: 'https://exemplo.com/imagem.png',
-    },
-}
-
-const statusOptions = ['Pendente', 'Em andamento', 'Concluída']
+const statusOptions = ['Pendente', 'Em andamento', 'Concluída'];
 
 export default function TaskForm() {
-    const { id } = useParams()
-    const navigate = useNavigate()
-    const isEdit = Boolean(id)
+    const { projectId, taskId } = useParams();
+    const navigate = useNavigate();
+    const isEdit = Boolean(taskId);
 
     const {
         register,
         handleSubmit,
-        setValue,
         reset,
         formState: { errors },
-    } = useForm()
+    } = useForm();
 
     useEffect(() => {
-        if (isEdit && mockTasks[id]) {
-            reset(mockTasks[id])
-        }
-    }, [id, isEdit, reset])
-
-    const onSubmit = (data) => {
         if (isEdit) {
-            console.log('Atualizar tarefa:', data)
-        } else {
-            console.log('Criar nova tarefa:', data)
+            const fetchTask = async () => {
+                try {
+                    const task = await getTaskById(taskId);
+                    reset(task);
+                } catch (err) {
+                    console.error('Erro ao carregar tarefa:', err);
+                }
+            };
+            fetchTask();
         }
-        navigate('/tasks')
-    }
+    }, [taskId, isEdit, reset]);
+
+    const onSubmit = async (data) => {
+        try {
+            const taskData = { ...data, project_id: projectId };
+
+            if (isEdit) {
+                await updateTask(taskId, taskData);
+            } else {
+                await createTask(taskData);
+            }
+
+            navigate(`/projects/${projectId}`);
+        } catch (err) {
+            console.log('Erro ao salvar a tarefa:', err);
+        }
+    };
 
     return (
         <Container maxWidth={false} sx={styles.containerBox}>
@@ -89,6 +95,7 @@ export default function TaskForm() {
                             register={register}
                             rules={{ required: 'Campo obrigatório' }}
                             errors={errors}
+                            hideLabel
                         />
                         <InputField
                             label="URL da Imagem"
@@ -108,5 +115,5 @@ export default function TaskForm() {
                 </Box>
             </Box>
         </Container>
-    )
+    );
 }
