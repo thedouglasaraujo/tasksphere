@@ -1,52 +1,36 @@
-import React, { useState } from 'react'
-import { Box, Container, Typography, Grid, Card } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
-import styles from './styles'
-import ProjectDateChips from '../../components/atoms/ProjectDateChips'
-import PrimaryButton from '../../components/atoms/PrimaryButton'
-
-const mockProjects = [
-    {
-        id: 1,
-        name: 'Projeto Alpha',
-        description: 'Descrição do projeto Alpha',
-        start_date: '2025-01-10',
-        end_date: '2025-04-15',
-        creator_id: 101,
-        collaborators: [102, 103],
-    },
-    {
-        id: 1,
-        name: 'Projeto Alpha',
-        description: 'Descrição do projeto Alpha',
-        start_date: '2025-01-10',
-        end_date: '2025-04-15',
-        creator_id: 101,
-        collaborators: [102, 103],
-    },
-    {
-        id: 1,
-        name: 'Projeto Alpha',
-        description: 'Descrição do projeto Alpha',
-        start_date: '2025-01-10',
-        end_date: '2025-04-15',
-        creator_id: 101,
-        collaborators: [102, 103],
-    },
-    {
-        id: 2,
-        name: 'Projeto Beta',
-        description: '',
-        start_date: '2025-02-01',
-        end_date: '2025-06-30',
-        creator_id: 102,
-        collaborators: [101],
-    },
-]
+import React, { useState, useEffect } from 'react';
+import { Box, Container, Typography, Grid, Card } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import styles from './styles';
+import ProjectDateChips from '../../components/atoms/ProjectDateChips';
+import PrimaryButton from '../../components/atoms/PrimaryButton';
+import { getProjects } from '../../services/projectService';
+import LoadingIndicator from '../../components/atoms/LoadingIndicator'
+import ErrorMessage from '../../components/atoms/ErrorMessage'
 
 export default function Dashboard() {
-    const [projects] = useState(mockProjects)
-    const navigate = useNavigate()
+    const [projects, setProjects] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchProjects = async () => {
+            try {
+                const data = await getProjects();
+                setProjects(data);
+            } catch (err) {
+                setError(true);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProjects();
+    }, []);
+
+    if (loading) return <LoadingIndicator />;
+    if (error) return <ErrorMessage message="Erro ao carregar projetos." />;
 
     return (
         <Box sx={styles.containerBox}>
@@ -94,5 +78,5 @@ export default function Dashboard() {
                 )}
             </Container>
         </Box>
-    )
+    );
 }
