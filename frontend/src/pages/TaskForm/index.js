@@ -1,11 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-    Box,
-    Container,
-    Stack,
-    Typography,
-    MenuItem,
-} from '@mui/material';
+import { Box, Container, Typography, Stack, MenuItem } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import InputField from '../../components/atoms/InputField';
@@ -14,7 +8,11 @@ import CancelButton from '../../components/atoms/TextButton';
 import styles from './styles';
 import { getTaskById, updateTask, createTask } from '../../services/taskService';
 
-const statusOptions = ['Pendente', 'Em andamento', 'Concluída'];
+const statusOptions = [
+    { value: 'todo', label: 'Pendente' },
+    { value: 'in_progress', label: 'Em andamento' },
+    { value: 'done', label: 'Concluída' },
+];
 
 export default function TaskForm() {
     const { projectId, taskId } = useParams();
@@ -71,20 +69,26 @@ export default function TaskForm() {
                             label="Título"
                             name="title"
                             register={register}
-                            rules={{ required: 'Campo obrigatório' }}
+                            rules={{
+                                required: 'Campo obrigatório',
+                                minLength: {
+                                    value: 3,
+                                    message: 'O título deve ter no mínimo 3 caracteres',
+                                },
+                            }}
                             errors={errors}
                         />
                         <InputField
                             label="Status"
                             name="status"
-                            select
+                            isSelect
                             register={register}
                             rules={{ required: 'Campo obrigatório' }}
                             errors={errors}
                         >
                             {statusOptions.map((option) => (
-                                <MenuItem key={option} value={option}>
-                                    {option}
+                                <MenuItem key={option.value} value={option.value}>
+                                    {option.label}
                                 </MenuItem>
                             ))}
                         </InputField>
@@ -93,7 +97,14 @@ export default function TaskForm() {
                             name="due_date"
                             type="date"
                             register={register}
-                            rules={{ required: 'Campo obrigatório' }}
+                            rules={{
+                                required: 'Campo obrigatório',
+                                validate: (value) => {
+                                    const currentDate = new Date();
+                                    const dueDate = new Date(value);
+                                    return dueDate > currentDate || 'A data de entrega deve ser no futuro';
+                                },
+                            }}
                             errors={errors}
                             hideLabel
                         />

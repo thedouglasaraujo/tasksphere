@@ -68,14 +68,25 @@ export default function ProjectForm() {
               label="Nome"
               name="name"
               register={register}
-              rules={{ required: 'Campo obrigatório' }}
+              rules={{
+                required: 'Nome é obrigatório',
+                minLength: {
+                  value: 3,
+                  message: 'Nome deve ter no mínimo 3 caracteres',
+                },
+              }}
               errors={errors}
             />
             <InputField
               label="Descrição"
               name="description"
               register={register}
-              rules={{ required: 'Campo obrigatório' }}
+              rules={{
+                maxLength: {
+                  value: 500,
+                  message: 'Descrição não pode ter mais de 500 caracteres',
+                },
+              }}
               errors={errors}
             />
             <InputField
