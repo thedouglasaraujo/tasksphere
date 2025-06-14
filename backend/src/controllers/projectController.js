@@ -98,6 +98,25 @@ module.exports = {
         }
     },
 
+    async getCollaborators(req, res) {
+        try {
+            const project = await Project.findByPk(req.params.id, {
+                include: [
+                    {
+                        association: 'collaborators',
+                        attributes: ['id', 'name', 'email']
+                    }
+                ]
+            });
+
+            if (!project) return res.status(404).json({ error: 'Projeto não encontrado' });
+
+            return res.json(project.collaborators);
+        } catch (err) {
+            return res.status(500).json({ error: 'Erro ao listar colaboradores' });
+        }
+    },
+
     async addCollaborator(req, res) {
         try {
             const { userId } = req.body;
