@@ -119,20 +119,29 @@ module.exports = {
 
     async addCollaborator(req, res) {
         try {
-            const { userId } = req.body;
+            const { name, email, password } = req.body;
+
             const project = await Project.findByPk(req.params.id);
 
-            if (!project) return res.status(404).json({ error: 'Projeto não encontrado' });
+            if (!project) {
+                return res.status(404).json({ error: 'Projeto não encontrado' });
+            }
+
             if (project.creator_id !== req.user.id) {
                 return res.status(403).json({ error: 'Apenas o criador pode adicionar colaboradores' });
             }
 
-            const user = await User.findByPk(userId);
-            if (!user) return res.status(404).json({ error: 'Usuário não encontrado' });
+            let user = await User.findOne({ where: { email } });
+
+            if (!user) {
+                user = await User.create({ name, email, password });
+            }
 
             await project.addCollaborator(user);
-            return res.status(200).json({ message: 'Colaborador adicionado' });
+
+            return res.status(200).json({ message: 'Colaborador adicionado com sucesso' });
         } catch (err) {
+            console.error('Erro ao adicionar colaborador:', err);
             return res.status(500).json({ error: 'Erro ao adicionar colaborador' });
         }
     },
