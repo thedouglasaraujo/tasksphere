@@ -1,52 +1,63 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import {
     Box,
     Typography,
     Divider,
     Container,
     Stack,
-} from '@mui/material'
-import { useParams, useNavigate } from 'react-router-dom'
-import styles from './styles'
+} from '@mui/material';
+import { useParams, useNavigate } from 'react-router-dom';
 
-import CollaboratorsList from '../../components/molecules/CollaboratorsList'
-import TaskList from '../../components/organisms/TaskList'
-import ProjectDateChips from '../../components/atoms/ProjectDateChips'
-import ProjectActionsButtons from '../../components/atoms/ProjectActionsButtons'
-import TextButton from '../../components/atoms/TextButton'
-
-const mockProject = {
-    id: 1,
-    name: 'Projeto Alpha',
-    description: 'Descrição detalhada do projeto.',
-    start_date: '2025-01-10',
-    end_date: '2025-04-15',
-    collaborators: [102, 103, 104],
-    tasks: [
-        { id: 1, title: 'Planejamento inicial', status: 'Concluída' },
-        { id: 2, title: 'Definir escopo', status: 'Pendente' },
-        { id: 3, title: 'Desenvolver protótipo', status: 'Em andamento' },
-    ],
-}
+import styles from './styles';
+import { getProjectById } from '../../services/projectService';
+import LoadingIndicator from '../../components/atoms/LoadingIndicator';
+import ErrorMessage from '../../components/atoms/ErrorMessage';
+import CollaboratorsList from '../../components/molecules/CollaboratorsList';
+import TaskList from '../../components/organisms/TaskList';
+import ProjectDateChips from '../../components/atoms/ProjectDateChips';
+import ProjectActionsButtons from '../../components/atoms/ProjectActionsButtons';
+import TextButton from '../../components/atoms/TextButton';
 
 export default function ProjectDetails() {
-    const { id } = useParams()
-    const navigate = useNavigate()
+    const { id } = useParams();
+    const navigate = useNavigate();
+
+    const [project, setProject] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+
+    useEffect(() => {
+        const fetchProject = async () => {
+            try {
+                const data = await getProjectById(id);
+                setProject(data);
+            } catch (err) {
+                setError(true);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProject();
+    }, [id]);
 
     const handleEdit = () => {
-        navigate(`/projects/${id}/edit`)
-    }
+        navigate(`/projects/${id}/edit`);
+    };
 
     const handleDelete = () => {
-        console.log('Excluir projeto', id)
-    }
+        console.log('Excluir projeto', id);
+    };
+
+    if (loading) return <LoadingIndicator />;
+    if (error || !project) return <ErrorMessage message="Projeto não encontrado." />;
 
     return (
         <Box sx={styles.containerBox}>
             <Container maxWidth={false} sx={styles.contentContainer}>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <Typography variant="h4" sx={styles.headerTitle}>
-                        {mockProject.name}
+                        {project.name}
                     </Typography>
 
                     <Stack direction="row" spacing={1}>
@@ -58,13 +69,13 @@ export default function ProjectDetails() {
                 </Box>
 
                 <Typography sx={styles.projectDescription}>
-                    {mockProject.description}
+                    {project.description || 'Sem descrição'}
                 </Typography>
 
                 <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
                     <ProjectDateChips
-                        startDate={mockProject.start_date}
-                        endDate={mockProject.end_date}
+                        startDate={project.start_date}
+                        endDate={project.end_date}
                     />
                 </Box>
 
@@ -79,7 +90,7 @@ export default function ProjectDetails() {
                     </TextButton>
                 </Box>
 
-                <CollaboratorsList collaborators={mockProject.collaborators} />
+                <CollaboratorsList collaborators={project.collaborators} />
 
                 <Divider sx={{ my: 4 }} />
 
@@ -92,8 +103,8 @@ export default function ProjectDetails() {
                     </TextButton>
                 </Box>
 
-                <TaskList tasks={mockProject.tasks} />
+                <TaskList tasks={project.tasks} />
             </Container>
         </Box>
-    )
+    );
 }
