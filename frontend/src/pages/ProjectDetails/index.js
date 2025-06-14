@@ -61,10 +61,10 @@ export default function ProjectDetails() {
                     </Typography>
 
                     <Stack direction="row" spacing={1}>
-                        <ProjectActionsButtons
+                        {project.canManage && <ProjectActionsButtons
                             onEdit={handleEdit}
                             onDelete={handleDelete}
-                        />
+                        />}
                     </Stack>
                 </Box>
 
@@ -85,9 +85,9 @@ export default function ProjectDetails() {
                     <Typography variant="h6" sx={styles.title}>
                         Colaboradores
                     </Typography>
-                    <TextButton onClick={() => navigate(`/projects/${id}/collaborators`)}>
+                    {project.canManage && <TextButton onClick={() => navigate(`/projects/${id}/collaborators`)}>
                         Gerenciar Colaboradores
-                    </TextButton>
+                    </TextButton>}
                 </Box>
 
                 <CollaboratorsList collaborators={project.collaborators} />

@@ -60,7 +60,9 @@ module.exports = {
             const isCollaborator = await project.hasCollaborator(req.user.id);
             if (!isCollaborator) return res.status(403).json({ error: 'Acesso negado ao projeto' });
 
-            return res.json(project);
+            const canManage = project.creator_id === req.user.id;
+
+            return res.json({ ...project.toJSON(), canManage });
         } catch (err) {
             return res.status(500).json({ error: 'Erro ao buscar projeto' });
         }
