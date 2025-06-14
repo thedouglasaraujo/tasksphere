@@ -1,11 +1,11 @@
 import { request } from './apiClient';
 
-export const getTasks = ({ search, status, projectId, page = 1, limit = 10 } = {}) => {
+export const getTasks = ({ title, status, project_id, page = 1, limit = 10 } = {}) => {
     const params = new URLSearchParams();
 
-    if (search) params.append('search', search);
+    if (title) params.append('title', title);
     if (status) params.append('status', status);
-    if (projectId) params.append('projectId', projectId);
+    if (project_id) params.append('project_id', project_id);
     params.append('page', page);
     params.append('limit', limit);
 

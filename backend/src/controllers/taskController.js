@@ -1,4 +1,4 @@
-const { Task, Project, User } = require('../models');
+const { Task, Project, ProjectCollaborators } = require('../models');
 const { Op } = require('sequelize');
 
 module.exports = {
@@ -32,16 +32,24 @@ module.exports = {
         try {
             const { title, status, project_id, page = 1, limit = 10 } = req.query;
 
-            const filters = {};
+            const userCollaborations = await ProjectCollaborators.findAll({
+                where: { user_id: req.user.id },
+                attributes: ['project_id'],
+            });
 
+            if (!userCollaborations.length) {
+                return res.status(403).json({ error: 'Usuário não tem colaborações em projetos' });
+            }
+
+            const projectIds = userCollaborations.map(collab => collab.project_id);
+
+            const filters = {
+                project_id: { [Op.in]: projectIds },
+            };
+
+            if (project_id) filters.project_id = project_id;
             if (title) filters.title = { [Op.iLike]: `%${title}%` };
             if (status) filters.status = status;
-            if (project_id) filters.project_id = project_id;
-
-            const userProjects = await req.user.getCollaborations({ attributes: ['id'] });
-            const projectIds = userProjects.map(p => p.id);
-
-            filters.project_id = { [Op.in]: projectIds };
 
             const tasks = await Task.findAndCountAll({
                 where: filters,
