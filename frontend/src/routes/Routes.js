@@ -6,6 +6,7 @@ import ProjectDetails from '../pages/ProjectDetails'
 import ProjectForm from '../pages/ProjectForm'
 import TaskForm from '../pages/TaskForm'
 import CollaboratorsManager from '../pages/CollaboratorsManager'
+import ErrorPage from '../pages/ErrorPage'
 
 const isAuthenticated = () => {
     return !!localStorage.getItem('token')
@@ -84,6 +85,9 @@ export default function AppRoutes() {
                         </PrivateRoute>
                     }
                 />
+
+                <Route path="/forbidden" element={<ErrorPage code={403} />} />
+                <Route path="/error" element={<ErrorPage code={500} />} />
 
                 <Route path="*" element={<Navigate to="/login" replace />} />
             </Routes>
