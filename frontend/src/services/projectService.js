@@ -10,8 +10,10 @@ export const updateProject = (id, data) => request(`/projects/${id}`, { method: 
 
 export const deleteProject = (id) => request(`/projects/${id}`, { method: 'DELETE' });
 
-export const addCollaborator = (projectId, userId) =>
-  request(`/projects/${projectId}/collaborators`, { method: 'POST', body: { userId } });
+export const getCollaborators = (id) => request(`/projects/${id}/collaborators`);
+
+export const addCollaborator = (projectId, data) =>
+  request(`/projects/${projectId}/collaborators`, { method: 'POST', body: data });
 
 export const removeCollaborator = (projectId, userId) =>
   request(`/projects/${projectId}/collaborators`, { method: 'DELETE', body: { userId } });
