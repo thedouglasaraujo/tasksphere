@@ -1,12 +1,23 @@
-import React from 'react'
-import { Box, Chip } from '@mui/material'
+import React from 'react';
+import { Box, Chip, Typography } from '@mui/material';
 
-export default function CollaboratorsList({ collaborators }) {
+export default function CollaboratorsList({ collaborators = [] }) {
     return (
         <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mt: 1 }}>
-            {collaborators.map((id) => (
-                <Chip key={id} label={`Usuário ${id}`} variant="outlined" color="primary" />
-            ))}
+            {collaborators.length === 0 ? (
+                <Typography variant="body2" color="textSecondary">
+                    Nenhum colaborador adicionado.
+                </Typography>
+            ) : (
+                collaborators.map((collaborator) => (
+                    <Chip
+                        key={collaborator.id}
+                        label={collaborator.name}
+                        variant="outlined"
+                        color="primary"
+                    />
+                ))
+            )}
         </Box>
-    )
+    );
 }
