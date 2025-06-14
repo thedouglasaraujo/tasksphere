@@ -3,6 +3,7 @@ import { Box, Container, Typography, Stack, MenuItem } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import InputField from '../../components/atoms/InputField';
+import SelectField from '../../components/atoms/SelectField';
 import PrimaryButton from '../../components/atoms/PrimaryButton';
 import CancelButton from '../../components/atoms/TextButton';
 import styles from './styles';
@@ -78,20 +79,14 @@ export default function TaskForm() {
                             }}
                             errors={errors}
                         />
-                        <InputField
+                        <SelectField
                             label="Status"
                             name="status"
-                            isSelect
                             register={register}
                             rules={{ required: 'Campo obrigatório' }}
                             errors={errors}
-                        >
-                            {statusOptions.map((option) => (
-                                <MenuItem key={option.value} value={option.value}>
-                                    {option.label}
-                                </MenuItem>
-                            ))}
-                        </InputField>
+                            options={statusOptions}
+                        />
                         <InputField
                             label="Data de Entrega"
                             name="due_date"
