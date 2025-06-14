@@ -5,18 +5,22 @@ import { useForm } from 'react-hook-form'
 import LoginForm from '../../components/molecules/LoginForm'
 import AlertSnackbar from '../../components/atoms/AlertSnackbar'
 import styles from './styles'
+import useAuth from '../../hooks/useAuth'
+import { loginRequest } from '../../services/authService'
 
 export default function Login() {
     const { register, handleSubmit, formState: { errors } } = useForm()
     const [errorOpen, setErrorOpen] = useState(false)
+    const { login } = useAuth()
 
-    const onSubmit = (data) => {
-        if (data.email === 'usuario@teste.com' && data.password === '123456') {
-            console.log('Login sucesso:', data)
-        } else {
-            setErrorOpen(true)
+    const onSubmit = async (data) => {
+        try {
+            const result = await loginRequest(data);
+            login(result.token, result.user);
+        } catch (err) {
+            setErrorOpen(true);
         }
-    }
+    };
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') return
