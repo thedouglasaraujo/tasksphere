@@ -5,6 +5,17 @@ const bcrypt = require('bcryptjs');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
+      User.hasMany(models.Project, {
+        foreignKey: 'creator_id',
+        as: 'projects'
+      });
+
+      User.belongsToMany(models.Project, {
+        through: 'ProjectCollaborators',
+        as: 'collaborations',
+        foreignKey: 'user_id',
+        otherKey: 'project_id'
+      });
     }
 
     async checkPassword(password) {
