@@ -1,30 +1,22 @@
-import React, { useEffect } from 'react'
-import { useForm } from 'react-hook-form'
+import React, { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import {
   Box,
   Container,
   Stack,
   Typography,
-} from '@mui/material'
-import { useNavigate, useParams } from 'react-router-dom'
-import InputField from '../../components/atoms/InputField'
-import PrimaryButton from '../../components/atoms/PrimaryButton'
-import TextButton from '../../components/atoms/TextButton'
-import styles from './styles'
-
-const mockProjects = {
-  1: {
-    name: 'Projeto Alpha',
-    description: 'Descrição detalhada do projeto.',
-    start_date: '2025-01-10',
-    end_date: '2025-04-15',
-  },
-}
+} from '@mui/material';
+import { useNavigate, useParams } from 'react-router-dom';
+import InputField from '../../components/atoms/InputField';
+import PrimaryButton from '../../components/atoms/PrimaryButton';
+import TextButton from '../../components/atoms/TextButton';
+import styles from './styles';
+import { getProjectById, updateProject, createProject } from '../../services/projectService';
 
 export default function ProjectForm() {
-  const { id } = useParams()
-  const navigate = useNavigate()
-  const isEdit = Boolean(id)
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const isEdit = Boolean(id);
 
   const {
     register,
@@ -32,25 +24,36 @@ export default function ProjectForm() {
     setValue,
     formState: { errors },
     watch,
-  } = useForm()
+  } = useForm();
 
-  const startDate = watch('start_date')
+  const startDate = watch('start_date');
 
   useEffect(() => {
-    if (isEdit && mockProjects[id]) {
-      const project = mockProjects[id]
-      Object.entries(project).forEach(([key, value]) => setValue(key, value))
-    }
-  }, [id, isEdit, setValue])
-
-  const onSubmit = (data) => {
     if (isEdit) {
-      console.log('Atualizar projeto:', data)
-    } else {
-      console.log('Criar novo projeto:', data)
+      const fetchProject = async () => {
+        try {
+          const project = await getProjectById(id);
+          Object.entries(project).forEach(([key, value]) => setValue(key, value));
+        } catch (err) {
+          console.log('Erro ao carregar o projeto:', err);
+        }
+      };
+      fetchProject();
     }
-    navigate('/projects')
-  }
+  }, [id, isEdit, setValue]);
+
+  const onSubmit = async (data) => {
+    try {
+      if (isEdit) {
+        await updateProject(id, data);
+      } else {
+        await createProject(data);
+      }
+      navigate('/dashboard');
+    } catch (err) {
+      console.log('Erro ao salvar o projeto:', err);
+    }
+  };
 
   return (
     <Container maxWidth={false} sx={styles.containerBox}>
@@ -108,5 +111,5 @@ export default function ProjectForm() {
         </Box>
       </Box>
     </Container>
-  )
+  );
 }
