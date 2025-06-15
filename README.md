@@ -40,7 +40,7 @@ Aplicação de **gestão colaborativa de projetos** desenvolvida com React, com 
 3. Inicie o servidor:
 
    ```bash
-   node index
+   node src/index.js
    ```
    O servidor estará disponível em: http://localhost:3000
 
@@ -105,4 +105,43 @@ Crie um arquivo .env dentro da pasta backend com as variáveis de ambiente neces
 - **Commits semânticos** seguindo boas práticas
 - **Layout responsivo** e visualmente consistente
 - **Feedbacks visuais** para carregamento, sucesso e erro
+
+## Imagens da Aplicação
+
+<p align="center">
+  <img src="images/login.png">
+  <img src="images/login-error.png">
+  <img src="images/dashboard.png">
+  <img src="images/new-project.png">
+  <img src="images/new-project-validations.png">
+  <img src="images/new-project-preenchido.png">
+  <img src="images/new-project-criado.png">
+  <img src="images/pagina-projeto.png">
+  <img src="images/edicao-projeto.png">
+  <img src="images/colaboradores.png">
+  <img src="images/adicionar-colaborador.png">
+  <img src="images/adicionar-colaborador-erros.png">
+  <img src="images/importar-colaboradores.png">
+  <img src="images/colaboradores-importados.png">
+  <img src="images/remover-colaborador.png">
+  <img src="images/colaborador-removido.png">
+  <img src="images/colaboradores-adicionados.png">
+  <img src="images/nova-tarefa.png">
+  <img src="images/nova-tarefa-validacoes.png">
+  <img src="images/nova-tarefa-preenchido.png">
+  <img src="images/nova-tarefa-criada.png">
+  <img src="images/editar-tarefa.png">
+  <img src="images/tarefas.png">
+  <img src="images/tarefas-paginação.png">
+  <img src="images/editar-tarefa.png">
+  <img src="images/filtro-em-andamento.png">
+  <img src="images/filtro-concluidas.png">
+  <img src="images/filtro-em-andamento.png">
+  <img src="images/filtro-busca.png">
+  <img src="images/tarefa-atualizada.png">
+  <img src="images/excluir-projeto.png">
+  <img src="images/tela-erro.png">
+  <img src="images/tela-forbidden.png">
+  <img src="images/tela-loading.png">
+</p>
 
