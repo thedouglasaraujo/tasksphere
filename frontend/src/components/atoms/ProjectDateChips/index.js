@@ -1,4 +1,3 @@
-import React from 'react'
 import { Box, Chip } from '@mui/material'
 
 export default function ProjectDateChips({ startDate, endDate }) {
