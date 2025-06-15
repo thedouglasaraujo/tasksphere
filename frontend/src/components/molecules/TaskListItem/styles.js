@@ -13,6 +13,11 @@ const taskListItemStyles = {
     taskTitle: {
         fontWeight: 600,
         color: '#34495E',
+    },
+    image: {
+        width: '100px',
+        height: '100px',
+        borderRadius: '8px',
     }
 }
 
