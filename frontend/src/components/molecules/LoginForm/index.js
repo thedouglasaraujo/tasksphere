@@ -7,6 +7,7 @@ export default function LoginForm({ onSubmit, register, errors, handleSubmit, sx
             <InputField
                 label="Email"
                 name="email"
+                placeholder="Digite seu email"
                 register={register}
                 rules={{
                     required: 'Email é obrigatório',
@@ -19,6 +20,7 @@ export default function LoginForm({ onSubmit, register, errors, handleSubmit, sx
                 label="Senha"
                 name="password"
                 type="password"
+                placeholder="Digite sua senha"
                 register={register}
                 rules={{
                     required: 'Senha é obrigatória',

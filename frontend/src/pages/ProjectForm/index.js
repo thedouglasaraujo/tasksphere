@@ -71,6 +71,7 @@ export default function ProjectForm() {
             <InputField
               label="Nome"
               name="name"
+              placeholder="Digite o nome do projeto"
               register={register}
               rules={{
                 required: 'Nome é obrigatório',
@@ -84,6 +85,7 @@ export default function ProjectForm() {
             <InputField
               label="Descrição"
               name="description"
+              placeholder="Digite a descrição do projeto"
               register={register}
               rules={{
                 maxLength: {

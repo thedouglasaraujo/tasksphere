@@ -36,6 +36,7 @@ export default function AddCollaboratorModal({ open, onClose, onAdd }) {
             <InputField
               label="Nome"
               name="name"
+              placeholder="Digite o nome do colaborador"
               register={register}
               rules={{ required: 'Nome é obrigatório' }}
               errors={errors}
@@ -44,6 +45,7 @@ export default function AddCollaboratorModal({ open, onClose, onAdd }) {
               label="Email"
               name="email"
               type="email"
+              placeholder="Digite o email do colaborador"
               register={register}
               rules={{
                 required: 'Email é obrigatório',
@@ -58,6 +60,7 @@ export default function AddCollaboratorModal({ open, onClose, onAdd }) {
               label="Senha"
               name="password"
               type="password"
+              placeholder="Digite a senha do colaborador"
               register={register}
               rules={{
                 required: 'Senha é obrigatória',

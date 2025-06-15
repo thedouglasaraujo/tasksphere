@@ -73,6 +73,7 @@ export default function TaskForm() {
                         <InputField
                             label="Título"
                             name="title"
+                            placeholder="Digite o título da tarefa"
                             register={register}
                             rules={{
                                 required: 'Campo obrigatório',
@@ -86,6 +87,7 @@ export default function TaskForm() {
                         <SelectField
                             label="Status"
                             name="status"
+                            placeholder="Selecione o status"
                             register={register}
                             rules={{ required: 'Campo obrigatório' }}
                             errors={errors}
@@ -110,6 +112,7 @@ export default function TaskForm() {
                         <InputField
                             label="URL da Imagem"
                             name="image_url"
+                            placeholder="Digite a URL da imagem"
                             register={register}
                             rules={{ required: 'Campo obrigatório' }}
                             errors={errors}
