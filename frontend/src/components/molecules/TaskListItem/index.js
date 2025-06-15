@@ -11,6 +11,7 @@ import StatusChip from '~/components/atoms/StatusChip';
 import TextButton from '~/components/atoms/TextButton';
 import styles from './styles';
 import EditIcon from '@mui/icons-material/Edit';
+import { formatDateBR } from '~/utils/dateUtils';
 
 export default function TaskListItem({ task }) {
     const navigate = useNavigate();
@@ -30,7 +31,7 @@ export default function TaskListItem({ task }) {
 
                         <ListItemText
                             primary={<Typography sx={styles.taskTitle}>{task.title}</Typography>}
-                            secondary={`Status: ${task.status}`}
+                            secondary={`Data de entrega: ${formatDateBR(task.due_date)}`}
                         />
                     </Box>
 
