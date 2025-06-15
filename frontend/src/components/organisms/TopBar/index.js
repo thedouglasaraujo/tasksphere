@@ -1,4 +1,3 @@
-import React from 'react';
 import { AppBar, Box, Toolbar, Typography, Button } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Link as RouterLink } from 'react-router-dom';

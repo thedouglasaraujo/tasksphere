@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Chip, Typography } from '@mui/material';
 
 export default function CollaboratorsList({ collaborators = [] }) {

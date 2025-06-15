@@ -1,4 +1,3 @@
-import React from 'react';
 import { SnackbarProvider } from '~/contexts/SnackbarContext';
 import AppRoutes from '~/routes/Routes';
 

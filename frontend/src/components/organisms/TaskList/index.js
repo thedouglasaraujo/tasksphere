@@ -1,4 +1,3 @@
-import React from 'react';
 import { List, Typography } from '@mui/material';
 import TaskListItem from '~/components/molecules/TaskListItem';
 
