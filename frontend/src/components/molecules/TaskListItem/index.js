@@ -9,12 +9,15 @@ import {
 import { useNavigate } from 'react-router-dom';
 import StatusChip from '~/components/atoms/StatusChip';
 import TextButton from '~/components/atoms/TextButton';
-import styles from './styles';
+import stylesFn from './styles';
 import EditIcon from '@mui/icons-material/Edit';
 import { formatDateBR } from '~/utils/dateUtils';
+import { useTheme } from '@mui/material/styles';
 
 export default function TaskListItem({ task }) {
     const navigate = useNavigate();
+    const theme = useTheme()
+    const styles = stylesFn(theme)
 
     return (
         <ListItem disablePadding sx={{ mb: 2 }}>
