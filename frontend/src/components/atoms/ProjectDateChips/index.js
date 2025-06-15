@@ -1,10 +1,22 @@
-import { Box, Chip } from '@mui/material'
+import EventIcon from '@mui/icons-material/Event';
+import { Box, Chip } from '@mui/material';
+import { formatDateBR } from '~/utils/dateUtils';
 
 export default function ProjectDateChips({ startDate, endDate }) {
-    return (
-        <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-            <Chip label={`Início: ${startDate}`} color="info" />
-            <Chip label={`Fim: ${endDate}`} color="warning" />
-        </Box>
-    )
+  return (
+    <Box sx={{ display: 'flex', gap: 1, alignItems: 'center', flexWrap: 'wrap' }}>
+      <Chip
+        icon={<EventIcon />}
+        label={`Início: ${formatDateBR(startDate)}`}
+        variant="outlined"
+        color="primary"
+      />
+      <Chip
+        icon={<EventIcon />}
+        label={`Fim: ${formatDateBR(endDate)}`}
+        variant="outlined"
+        color="secondary"
+      />
+    </Box>
+  );
 }
