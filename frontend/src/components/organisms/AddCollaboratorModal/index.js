@@ -1,15 +1,10 @@
-import {
-  Modal,
-  Box,
-  Typography,
-  Stack,
-} from '@mui/material'
-import { useForm } from 'react-hook-form'
-import stylesFn from './styles'
-import InputField from 'components/atoms/InputField'
-import TextButton from 'components/atoms/TextButton'
-import PrimaryButton from 'components/atoms/PrimaryButton'
+import { Box, Modal, Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import InputField from '~/components/atoms/InputField';
+import PrimaryButton from '~/components/atoms/PrimaryButton';
+import TextButton from '~/components/atoms/TextButton';
+import { useForm } from 'react-hook-form';
+import stylesFn from './styles';
 
 export default function AddCollaboratorModal({ open, onClose, onAdd }) {
   const {
@@ -17,15 +12,15 @@ export default function AddCollaboratorModal({ open, onClose, onAdd }) {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm()
+  } = useForm();
 
-  const onSubmit = (data) => {
-    onAdd(data)
-    reset()
-    onClose()
-  }
-  const theme = useTheme()
-  const styles = stylesFn(theme)
+  const onSubmit = data => {
+    onAdd(data);
+    reset();
+    onClose();
+  };
+  const theme = useTheme();
+  const styles = stylesFn(theme);
 
   return (
     <Modal open={open} onClose={onClose}>
@@ -83,5 +78,5 @@ export default function AddCollaboratorModal({ open, onClose, onAdd }) {
         </form>
       </Box>
     </Modal>
-  )
+  );
 }

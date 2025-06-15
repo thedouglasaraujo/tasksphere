@@ -1,4 +1,4 @@
-const styles = (theme) => ({
+const styles = theme => ({
   containerBox: {
     minHeight: '100vh',
     alignItems: 'flex-start',
@@ -57,6 +57,6 @@ const styles = (theme) => ({
   chipEnd: {
     fontWeight: 600,
   },
-})
+});
 
-export default styles
+export default styles;

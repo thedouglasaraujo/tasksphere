@@ -1,27 +1,22 @@
+import { Box, Container, Stack, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import {
-  Box,
-  Container,
-  Stack,
-  Typography,
-} from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import InputField from '~/components/atoms/InputField';
 import PrimaryButton from '~/components/atoms/PrimaryButton';
 import TextButton from '~/components/atoms/TextButton';
-import stylesFn from './styles';
-import { getProjectById, updateProject, createProject } from '~/services/projectService';
 import { useSnackbar } from '~/contexts/SnackbarContext';
-import { useTheme } from '@mui/material/styles';
+import { createProject, getProjectById, updateProject } from '~/services/projectService';
+import stylesFn from './styles';
 
 export default function ProjectForm() {
   const { id } = useParams();
   const navigate = useNavigate();
   const isEdit = Boolean(id);
   const { showSnackbar } = useSnackbar();
-  const theme = useTheme()
-  const styles = stylesFn(theme)
+  const theme = useTheme();
+  const styles = stylesFn(theme);
 
   const {
     register,
@@ -47,7 +42,7 @@ export default function ProjectForm() {
     }
   }, [id, isEdit, setValue]);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async data => {
     try {
       if (isEdit) {
         await updateProject(id, data);
@@ -114,8 +109,10 @@ export default function ProjectForm() {
               register={register}
               rules={{
                 required: 'Campo obrigatório',
-                validate: (value) =>
-                  !startDate || value >= startDate || 'A data de fim deve ser posterior à data de início',
+                validate: value =>
+                  !startDate ||
+                  value >= startDate ||
+                  'A data de fim deve ser posterior à data de início',
               }}
               errors={errors}
               hideLabel
