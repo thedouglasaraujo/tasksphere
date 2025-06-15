@@ -1,5 +1,5 @@
 import { Box, Button } from '@mui/material'
-import InputField from '../../atoms/InputField'
+import InputField from '~/components/atoms/InputField'
 
 export default function LoginForm({ onSubmit, register, errors, handleSubmit, sxButton, sxLabel, sxLabelWithMarginTop }) {
     return (

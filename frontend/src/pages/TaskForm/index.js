@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
-import { Box, Container, Typography, Stack, MenuItem } from '@mui/material';
+import { Box, Container, Typography, Stack } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import InputField from '../../components/atoms/InputField';
-import SelectField from '../../components/atoms/SelectField';
-import PrimaryButton from '../../components/atoms/PrimaryButton';
-import CancelButton from '../../components/atoms/TextButton';
+import InputField from '~/components/atoms/InputField';
+import SelectField from '~/components/atoms/SelectField';
+import PrimaryButton from '~/components/atoms/PrimaryButton';
+import CancelButton from '~/components/atoms/TextButton';
 import styles from './styles';
-import { getTaskById, updateTask, createTask } from '../../services/taskService';
-import { useSnackbar } from '../../contexts/SnackbarContext';
+import { getTaskById, updateTask, createTask } from '~/services/taskService';
+import { useSnackbar } from '~/contexts/SnackbarContext';
 
 const statusOptions = [
     { value: 'todo', label: 'Pendente' },

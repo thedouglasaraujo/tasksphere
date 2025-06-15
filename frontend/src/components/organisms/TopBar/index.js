@@ -2,7 +2,7 @@ import React from 'react';
 import { AppBar, Box, Toolbar, Typography, Button } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Link as RouterLink } from 'react-router-dom';
-import useAuth from '../../../hooks/useAuth';
+import useAuth from '~/hooks/useAuth';
 
 export default function TopBar() {
     const { user, logout } = useAuth();

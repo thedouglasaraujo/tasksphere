@@ -1,11 +1,11 @@
 import { Box, Container, Paper, Typography } from '@mui/material'
 import { useForm } from 'react-hook-form'
 
-import LoginForm from '../../components/molecules/LoginForm'
+import LoginForm from '~/components/molecules/LoginForm'
 import styles from './styles'
-import useAuth from '../../hooks/useAuth'
-import { loginRequest } from '../../services/authService'
-import { useSnackbar } from '../../contexts/SnackbarContext';
+import useAuth from '~/hooks/useAuth'
+import { loginRequest } from '~/services/authService'
+import { useSnackbar } from '~/contexts/SnackbarContext';
 
 export default function Login() {
     const { register, handleSubmit, formState: { errors } } = useForm()

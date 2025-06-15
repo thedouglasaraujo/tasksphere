@@ -1,4 +1,4 @@
-import API_URL from '../config/api';
+import API_URL from '~/config/api';
 
 export async function request(path, { method = 'GET', body } = {}) {
     const token = localStorage.getItem('token');

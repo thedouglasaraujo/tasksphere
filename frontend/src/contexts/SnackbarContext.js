@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import AlertSnackbar from '../components/atoms/AlertSnackbar';
+import AlertSnackbar from '~/components/atoms/AlertSnackbar';
 
 const SnackbarContext = createContext();
 

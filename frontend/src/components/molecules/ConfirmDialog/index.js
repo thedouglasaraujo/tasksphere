@@ -6,8 +6,8 @@ import {
     DialogTitle,
     Stack
 } from '@mui/material';
-import PrimaryButton from '../../atoms/PrimaryButton';
-import TextButton from '../../atoms/TextButton';
+import PrimaryButton from '~/components/atoms/PrimaryButton';
+import TextButton from '~/components/atoms/TextButton';
 
 export default function ConfirmDialog({ open, onClose, onConfirm, message }) {
     return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { Box, Toolbar } from '@mui/material';
-import TopBar from '../components/organisms/TopBar';
+import TopBar from '~/components/organisms/TopBar';
 
 export default function ProtectedLayout() {
     return (

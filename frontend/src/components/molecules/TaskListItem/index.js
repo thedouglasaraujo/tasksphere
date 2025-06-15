@@ -8,8 +8,8 @@ import {
     Box
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import StatusChip from '../../atoms/StatusChip';
-import TextButton from '../../atoms/TextButton';
+import StatusChip from '~/components/atoms/StatusChip';
+import TextButton from '~/components/atoms/TextButton';
 import styles from './styles';
 import EditIcon from '@mui/icons-material/Edit';
 

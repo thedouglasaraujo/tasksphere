@@ -6,12 +6,12 @@ import {
 import { useParams } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import styles from './styles';
-import AddCollaboratorModal from '../../components/organisms/AddCollaboratorModal';
-import PrimaryButton from '../../components/atoms/PrimaryButton';
-import { getCollaborators, addCollaborator, removeCollaborator } from '../../services/projectService';
-import ImportExternalCollaboratorsModal from '../../components/organisms/ImportExternalCollaboratorsModal';
-import ConfirmDialog from '../../components/molecules/ConfirmDialog';
-import { useSnackbar } from '../../contexts/SnackbarContext';
+import AddCollaboratorModal from '~/components/organisms/AddCollaboratorModal';
+import PrimaryButton from '~/components/atoms/PrimaryButton';
+import { getCollaborators, addCollaborator, removeCollaborator } from '~/services/projectService';
+import ImportExternalCollaboratorsModal from '~/components/organisms/ImportExternalCollaboratorsModal';
+import ConfirmDialog from '~/components/molecules/ConfirmDialog';
+import { useSnackbar } from '~/contexts/SnackbarContext';
 
 export default function CollaboratorsManager() {
     const { id } = useParams();

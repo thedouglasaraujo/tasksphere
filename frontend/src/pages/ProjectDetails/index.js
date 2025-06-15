@@ -3,17 +3,17 @@ import { Box, Typography, Divider, Container, Stack, Pagination } from '@mui/mat
 import { useParams, useNavigate } from 'react-router-dom';
 
 import styles from './styles';
-import { getProjectById, deleteProject } from '../../services/projectService';
-import { getTasks } from '../../services/taskService';
-import LoadingIndicator from '../../components/atoms/LoadingIndicator';
-import ErrorMessage from '../../components/atoms/ErrorMessage';
-import CollaboratorsList from '../../components/molecules/CollaboratorsList';
-import TaskList from '../../components/organisms/TaskList';
-import ProjectDateChips from '../../components/atoms/ProjectDateChips';
-import ProjectActionsButtons from '../../components/atoms/ProjectActionsButtons';
-import TextButton from '../../components/atoms/TextButton';
-import TaskFilter from '../../components/molecules/TaskFilter';
-import ConfirmDialog from '../../components/molecules/ConfirmDialog';
+import { getProjectById, deleteProject } from '~/services/projectService';
+import { getTasks } from '~/services/taskService';
+import LoadingIndicator from '~/components/atoms/LoadingIndicator';
+import ErrorMessage from '~/components/atoms/ErrorMessage';
+import CollaboratorsList from '~/components/molecules/CollaboratorsList';
+import TaskList from '~/components/organisms/TaskList';
+import ProjectDateChips from '~/components/atoms/ProjectDateChips';
+import ProjectActionsButtons from '~/components/atoms/ProjectActionsButtons';
+import TextButton from '~/components/atoms/TextButton';
+import TaskFilter from '~/components/molecules/TaskFilter';
+import ConfirmDialog from '~/components/molecules/ConfirmDialog';
 
 export default function ProjectDetails() {
     const { id } = useParams();

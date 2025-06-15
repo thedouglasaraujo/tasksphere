@@ -1,13 +1,13 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import Login from '../pages/Login'
-import Dashboard from '../pages/Dashboard'
-import ProjectDetails from '../pages/ProjectDetails'
-import ProjectForm from '../pages/ProjectForm'
-import TaskForm from '../pages/TaskForm'
-import CollaboratorsManager from '../pages/CollaboratorsManager'
-import ErrorPage from '../pages/ErrorPage'
-import ProtectedLayout from '../layouts/ProtectedLayout'
+import Login from '~/pages/Login'
+import Dashboard from '~/pages/Dashboard'
+import ProjectDetails from '~/pages/ProjectDetails'
+import ProjectForm from '~/pages/ProjectForm'
+import TaskForm from '~/pages/TaskForm'
+import CollaboratorsManager from '~/pages/CollaboratorsManager'
+import ErrorPage from '~/pages/ErrorPage'
+import ProtectedLayout from '~/layouts/ProtectedLayout'
 
 const isAuthenticated = () => {
     return !!localStorage.getItem('token')

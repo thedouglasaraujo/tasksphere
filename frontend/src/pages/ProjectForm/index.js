@@ -7,12 +7,12 @@ import {
   Typography,
 } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
-import InputField from '../../components/atoms/InputField';
-import PrimaryButton from '../../components/atoms/PrimaryButton';
-import TextButton from '../../components/atoms/TextButton';
+import InputField from '~/components/atoms/InputField';
+import PrimaryButton from '~/components/atoms/PrimaryButton';
+import TextButton from '~/components/atoms/TextButton';
 import styles from './styles';
-import { getProjectById, updateProject, createProject } from '../../services/projectService';
-import { useSnackbar } from '../../contexts/SnackbarContext';
+import { getProjectById, updateProject, createProject } from '~/services/projectService';
+import { useSnackbar } from '~/contexts/SnackbarContext';
 
 export default function ProjectForm() {
   const { id } = useParams();

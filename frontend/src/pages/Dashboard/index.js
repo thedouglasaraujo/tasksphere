@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Box, Container, Typography, Grid, Card } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import styles from './styles';
-import ProjectDateChips from '../../components/atoms/ProjectDateChips';
-import PrimaryButton from '../../components/atoms/PrimaryButton';
-import { getProjects } from '../../services/projectService';
-import LoadingIndicator from '../../components/atoms/LoadingIndicator'
-import ErrorMessage from '../../components/atoms/ErrorMessage'
+import ProjectDateChips from '~/components/atoms/ProjectDateChips';
+import PrimaryButton from '~/components/atoms/PrimaryButton';
+import { getProjects } from '~/services/projectService';
+import LoadingIndicator from '~/components/atoms/LoadingIndicator'
+import ErrorMessage from '~/components/atoms/ErrorMessage'
 
 export default function Dashboard() {
     const [projects, setProjects] = useState([]);
