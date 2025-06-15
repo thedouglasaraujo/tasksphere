@@ -2,15 +2,18 @@ import { Box, Container, Paper, Typography } from '@mui/material'
 import { useForm } from 'react-hook-form'
 
 import LoginForm from '~/components/molecules/LoginForm'
-import styles from './styles'
+import stylesFn from './styles'
 import useAuth from '~/hooks/useAuth'
 import { loginRequest } from '~/services/authService'
 import { useSnackbar } from '~/contexts/SnackbarContext';
+import { useTheme } from '@mui/material/styles';
 
 export default function Login() {
     const { register, handleSubmit, formState: { errors } } = useForm()
     const { login } = useAuth()
     const { showSnackbar } = useSnackbar();
+    const theme = useTheme()
+    const styles = stylesFn(theme)
 
     const onSubmit = async (data) => {
         try {

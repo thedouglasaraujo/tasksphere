@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Container, Typography, Grid, Card } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import styles from './styles';
+import stylesFn from './styles';
 import ProjectDateChips from '~/components/atoms/ProjectDateChips';
 import PrimaryButton from '~/components/atoms/PrimaryButton';
 import { getProjects } from '~/services/projectService';
 import LoadingIndicator from '~/components/atoms/LoadingIndicator'
 import ErrorMessage from '~/components/atoms/ErrorMessage'
+import { useTheme } from '@mui/material/styles';
 
 export default function Dashboard() {
     const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const navigate = useNavigate();
+    const theme = useTheme()
+    const styles = stylesFn(theme)
 
     useEffect(() => {
         const fetchProjects = async () => {

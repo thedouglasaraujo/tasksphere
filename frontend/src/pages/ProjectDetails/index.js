@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Box, Typography, Divider, Container, Stack, Pagination } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import styles from './styles';
+import stylesFn from './styles';
 import { getProjectById, deleteProject } from '~/services/projectService';
 import { getTasks } from '~/services/taskService';
 import LoadingIndicator from '~/components/atoms/LoadingIndicator';
@@ -14,10 +14,13 @@ import ProjectActionsButtons from '~/components/atoms/ProjectActionsButtons';
 import TextButton from '~/components/atoms/TextButton';
 import TaskFilter from '~/components/molecules/TaskFilter';
 import ConfirmDialog from '~/components/molecules/ConfirmDialog';
+import { useTheme } from '@mui/material/styles';
 
 export default function ProjectDetails() {
     const { id } = useParams();
     const navigate = useNavigate();
+    const theme = useTheme()
+    const styles = stylesFn(theme)
 
     const [project, setProject] = useState(null);
     const [tasks, setTasks] = useState([]);

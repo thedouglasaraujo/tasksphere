@@ -1,4 +1,4 @@
-const taskListItemStyles = {
+const styles = {
     taskCard: {
         width: '100%',
         bgcolor: '#ECF0F1',
@@ -21,4 +21,4 @@ const taskListItemStyles = {
     }
 }
 
-export default taskListItemStyles
+export default styles

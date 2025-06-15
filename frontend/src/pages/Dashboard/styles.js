@@ -1,4 +1,4 @@
-const styles = {
+const styles = (theme) => ({
   containerBox: {
     minHeight: '100vh',
     alignItems: 'flex-start',
@@ -10,7 +10,7 @@ const styles = {
     width: '75%',
   },
   card: {
-    bgcolor: '#ECF0F1',
+    bgcolor: theme.palette.grey[100],
     borderRadius: 3,
     boxShadow: '0 10px 30px rgba(44, 62, 80, 0.2)',
     minHeight: 220,
@@ -35,19 +35,19 @@ const styles = {
   },
   headerTitle: {
     fontWeight: 700,
-    color: '#2C3E50',
+    color: theme.palette.primary.main,
   },
   noProjectsText: {
-    color: '#7F8C8D',
+    color: theme.palette.text.secondary,
     textAlign: 'center',
     mt: 6,
   },
   title: {
     fontWeight: 700,
-    color: '#2C3E50',
+    color: theme.palette.primary.main,
   },
   description: {
-    color: '#34495E',
+    color: theme.palette.text.primary,
     minHeight: 64,
     mb: 2,
   },
@@ -57,6 +57,6 @@ const styles = {
   chipEnd: {
     fontWeight: 600,
   },
-}
+})
 
 export default styles

@@ -1,4 +1,4 @@
-const projectFormStyles = {
+const styles = (theme) => ({
     containerBox: {
         minHeight: '100vh',
         display: 'flex',
@@ -7,21 +7,25 @@ const projectFormStyles = {
         pt: 8,
         px: 2,
     },
+
     contentContainer: {
         width: '75%',
     },
+
     title: {
         fontWeight: 700,
-        color: '#2C3E50',
+        color: theme.palette.primary.main,
         mb: 3,
     },
+
     textField: {
-        backgroundColor: '#fff',
+        backgroundColor: theme.palette.background.paper,
     },
+
     buttonRow: {
         mt: 2,
         justifyContent: 'flex-end',
     },
-}
+})
 
-export default projectFormStyles
+export default styles

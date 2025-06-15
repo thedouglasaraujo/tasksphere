@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Box, Container, Typography, Stack } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -6,9 +6,10 @@ import InputField from '~/components/atoms/InputField';
 import SelectField from '~/components/atoms/SelectField';
 import PrimaryButton from '~/components/atoms/PrimaryButton';
 import CancelButton from '~/components/atoms/TextButton';
-import styles from './styles';
+import stylesFn from './styles';
 import { getTaskById, updateTask, createTask } from '~/services/taskService';
 import { useSnackbar } from '~/contexts/SnackbarContext';
+import { useTheme } from '@mui/material/styles';
 
 const statusOptions = [
     { value: 'todo', label: 'Pendente' },
@@ -21,6 +22,8 @@ export default function TaskForm() {
     const navigate = useNavigate();
     const isEdit = Boolean(taskId);
     const { showSnackbar } = useSnackbar();
+    const theme = useTheme()
+    const styles = stylesFn(theme)
 
     const {
         register,

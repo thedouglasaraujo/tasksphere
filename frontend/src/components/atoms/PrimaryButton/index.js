@@ -1,5 +1,5 @@
 import { Button } from '@mui/material'
-import { defaultStyles } from './styles'
+import styles from './styles'
 
 export default function PrimaryButton({
     label,
@@ -12,7 +12,10 @@ export default function PrimaryButton({
             variant="contained"
             size="large"
             onClick={onClick}
-            sx={{ ...defaultStyles, ...sx }}
+            sx={(theme) => ({
+                ...styles(theme),
+                ...sx,
+            })}
             {...props}
         >
             {label}

@@ -1,4 +1,4 @@
-const errorPageStyles = {
+const styles = (theme) => ({
     container: {
         minHeight: '100vh',
         display: 'flex',
@@ -6,24 +6,28 @@ const errorPageStyles = {
         alignItems: 'center',
         px: 2,
     },
+
     content: {
         textAlign: 'center',
     },
+
     code: {
-        color: '#DB1E2F',
+        color: theme.palette.error.main,
         fontWeight: 700,
     },
+
     message: {
         mt: 2,
         mb: 4,
-        color: '#2C3E50',
+        color: theme.palette.text.primary,
     },
+
     button: {
-        backgroundColor: '#DB1E2F',
+        backgroundColor: theme.palette.error.main,
         '&:hover': {
-            backgroundColor: '#AF0421',
+            backgroundColor: theme.palette.error.dark,
         },
     },
-}
+})
 
-export default errorPageStyles
+export default styles

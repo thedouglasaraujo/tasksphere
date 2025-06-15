@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     Box, Container, Typography, Divider, List, ListItem, ListItemText,
     IconButton, Stack
 } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
-import styles from './styles';
+import stylesFn from './styles';
 import AddCollaboratorModal from '~/components/organisms/AddCollaboratorModal';
 import PrimaryButton from '~/components/atoms/PrimaryButton';
 import { getCollaborators, addCollaborator, removeCollaborator } from '~/services/projectService';
 import ImportExternalCollaboratorsModal from '~/components/organisms/ImportExternalCollaboratorsModal';
 import ConfirmDialog from '~/components/molecules/ConfirmDialog';
 import { useSnackbar } from '~/contexts/SnackbarContext';
+import { useTheme } from '@mui/material/styles';
 
 export default function CollaboratorsManager() {
     const { id } = useParams();
@@ -21,6 +22,8 @@ export default function CollaboratorsManager() {
     const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
     const [collaboratorToRemove, setCollaboratorToRemove] = useState(null);
     const { showSnackbar } = useSnackbar();
+    const theme = useTheme()
+    const styles = stylesFn(theme)
 
     const fetchCollaborators = async () => {
         try {

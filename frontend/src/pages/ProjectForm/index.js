@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   Box,
@@ -10,15 +10,18 @@ import { useNavigate, useParams } from 'react-router-dom';
 import InputField from '~/components/atoms/InputField';
 import PrimaryButton from '~/components/atoms/PrimaryButton';
 import TextButton from '~/components/atoms/TextButton';
-import styles from './styles';
+import stylesFn from './styles';
 import { getProjectById, updateProject, createProject } from '~/services/projectService';
 import { useSnackbar } from '~/contexts/SnackbarContext';
+import { useTheme } from '@mui/material/styles';
 
 export default function ProjectForm() {
   const { id } = useParams();
   const navigate = useNavigate();
   const isEdit = Boolean(id);
   const { showSnackbar } = useSnackbar();
+  const theme = useTheme()
+  const styles = stylesFn(theme)
 
   const {
     register,

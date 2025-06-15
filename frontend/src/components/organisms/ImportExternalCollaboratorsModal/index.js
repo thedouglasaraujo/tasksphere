@@ -10,11 +10,14 @@ import {
     CircularProgress
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import styles from './styles';
+import stylesFn from './styles';
+import { useTheme } from '@mui/material/styles';
 
 export default function ImportExternalCollaboratorsModal({ open, onClose, onAdd }) {
     const [loading, setLoading] = useState(false);
     const [externalCollaborators, setExternalCollaborators] = useState([]);
+    const theme = useTheme()
+    const styles = stylesFn(theme)
 
     const fetchExternalCollaborators = async () => {
         setLoading(true);

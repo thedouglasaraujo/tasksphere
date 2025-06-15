@@ -1,4 +1,4 @@
-const styles = {
+const styles = (theme) => ({
     containerBox: {
         minHeight: '100vh',
         display: 'flex',
@@ -6,40 +6,46 @@ const styles = {
         alignItems: 'center',
         px: 2,
     },
+
     paper: {
         p: 4,
         borderRadius: 3,
-        bgcolor: '#ECF0F1',
+        bgcolor: theme.palette.grey[100],
         boxShadow: '0 10px 30px rgba(44, 62, 80, 0.2)',
     },
+
     title: {
-        fontWeight: '700',
-        color: '#2C3E50',
+        fontWeight: 700,
+        color: theme.palette.primary.main,
     },
+
     subtitle: {
         mb: 3,
-        color: '#7F8C8D',
+        color: theme.palette.text.secondary,
     },
+
     label: {
         mb: 0.5,
         fontWeight: 600,
-        color: '#34495E',
+        color: theme.palette.text.primary,
     },
+
     labelWithMarginTop: {
+        mt: 2,
         mb: 0.5,
         fontWeight: 600,
-        color: '#34495E',
-        mt: 2,
+        color: theme.palette.text.primary,
     },
+
     button: {
         mt: 4,
         py: 1.5,
-        fontWeight: '700',
-        bgcolor: '#2C3E50',
+        fontWeight: 700,
+        bgcolor: theme.palette.primary.main,
         '&:hover': {
-            bgcolor: '#3498DB',
+            bgcolor: theme.palette.primary.light,
         },
-    }
-}
+    },
+})
 
 export default styles

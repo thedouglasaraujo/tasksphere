@@ -1,8 +1,8 @@
-const styles = {
+const styles = (theme) => ({
     button: {
-        color: "#2C3E50",
-        fontWeight: 'bold'
+        color: theme.palette.primary.main,
+        fontWeight: 'bold',
     },
-}
+})
 
 export default styles

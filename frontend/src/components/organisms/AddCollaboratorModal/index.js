@@ -5,10 +5,11 @@ import {
   Stack,
 } from '@mui/material'
 import { useForm } from 'react-hook-form'
-import styles from './styles'
+import stylesFn from './styles'
 import InputField from 'components/atoms/InputField'
 import TextButton from 'components/atoms/TextButton'
 import PrimaryButton from 'components/atoms/PrimaryButton'
+import { useTheme } from '@mui/material/styles';
 
 export default function AddCollaboratorModal({ open, onClose, onAdd }) {
   const {
@@ -23,6 +24,8 @@ export default function AddCollaboratorModal({ open, onClose, onAdd }) {
     reset()
     onClose()
   }
+  const theme = useTheme()
+  const styles = stylesFn(theme)
 
   return (
     <Modal open={open} onClose={onClose}>

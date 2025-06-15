@@ -1,9 +1,12 @@
 import { Box, Container, Typography, Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import styles from './styles'
+import stylesFn from './styles'
+import { useTheme } from '@mui/material/styles'
 
 export default function ErrorPage({ code = 403, message }) {
     const navigate = useNavigate()
+    const theme = useTheme()
+    const styles = stylesFn(theme)
 
     const defaultMessages = {
         403: 'Você não tem permissão para acessar esta página.',
