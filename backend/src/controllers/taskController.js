@@ -53,16 +53,26 @@ module.exports = {
 
             const tasks = await Task.findAndCountAll({
                 where: filters,
+                include: ['project'],
                 limit: parseInt(limit),
                 offset: (parseInt(page) - 1) * parseInt(limit),
-                order: [['due_date', 'ASC']]
+                order: [['due_date', 'ASC']],
+            });
+
+            const tasksWithPermissions = tasks.rows.map(task => {
+                const isTaskCreator = task.creator_id === req.user.id;
+                const isProjectCreator = task.project?.creator_id === req.user.id;
+                return {
+                    ...task.toJSON(),
+                    canManage: isTaskCreator || isProjectCreator,
+                };
             });
 
             return res.json({
                 total: tasks.count,
                 page: parseInt(page),
                 pages: Math.ceil(tasks.count / limit),
-                data: tasks.rows
+                data: tasksWithPermissions,
             });
         } catch (err) {
             return res.status(500).json({ error: 'Erro ao listar tarefas' });

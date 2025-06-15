@@ -28,13 +28,17 @@ export default function TaskListItem({ task, onDelete }) {
 
           <Box sx={styles.taskActions}>
             <StatusChip status={task.status} />
-            <TextButton onClick={() => navigate(`/tasks/${task.id}/edit`)}>
-              <EditIcon />
-            </TextButton>
-            {onDelete && (
-              <TextButton onClick={() => onDelete(task.id)}>
-                <DeleteIcon />
-              </TextButton>
+            {task.canManage && (
+              <>
+                <TextButton onClick={() => navigate(`/tasks/${task.id}/edit`)}>
+                  <EditIcon />
+                </TextButton>
+                {onDelete && (
+                  <TextButton onClick={() => onDelete(task.id)}>
+                    <DeleteIcon />
+                  </TextButton>
+                )}
+              </>
             )}
           </Box>
         </CardContent>
