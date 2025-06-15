@@ -24,6 +24,7 @@ const styles = theme => ({
       boxShadow: '0 14px 40px rgba(44, 62, 80, 0.3)',
       transform: 'translateY(-6px)',
     },
+    maxWidth: 360
   },
   headerBox: {
     display: 'flex',

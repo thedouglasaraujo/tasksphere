@@ -57,7 +57,7 @@ export default function Dashboard() {
                   elevation={0}
                 >
                   <Box>
-                    <Typography variant="h6" noWrap sx={styles.title}>
+                    <Typography variant="h6" sx={styles.title}>
                       {project.name}
                     </Typography>
                     <Typography variant="body2" sx={styles.description}>

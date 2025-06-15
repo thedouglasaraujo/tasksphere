@@ -47,11 +47,12 @@ export default function ProjectForm() {
       if (isEdit) {
         await updateProject(id, data);
         showSnackbar('Projeto atualizado com sucesso!', 'success');
+        navigate('/projects/' + id);
       } else {
         await createProject(data);
         showSnackbar('Projeto criado com sucesso!', 'success');
+        navigate('/dashboard');
       }
-      navigate('/dashboard');
     } catch (err) {
       showSnackbar('Erro ao salvar o projeto', 'error');
     }
@@ -67,7 +68,7 @@ export default function ProjectForm() {
 
           <Stack spacing={1}>
             <InputField
-              label="Nome"
+              label="Nome *"
               name="name"
               placeholder="Digite o nome do projeto"
               register={register}
@@ -94,7 +95,7 @@ export default function ProjectForm() {
               errors={errors}
             />
             <InputField
-              label="Data de Início"
+              label="Data de Início *"
               name="start_date"
               type="date"
               register={register}
@@ -103,7 +104,7 @@ export default function ProjectForm() {
               hideLabel
             />
             <InputField
-              label="Data de Fim"
+              label="Data de Fim * "
               name="end_date"
               type="date"
               register={register}

@@ -32,7 +32,7 @@ export default function AddCollaboratorModal({ open, onClose, onAdd }) {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={2} mt={2}>
             <InputField
-              label="Nome"
+              label="Nome *"
               name="name"
               placeholder="Digite o nome do colaborador"
               register={register}
@@ -40,7 +40,7 @@ export default function AddCollaboratorModal({ open, onClose, onAdd }) {
               errors={errors}
             />
             <InputField
-              label="Email"
+              label="Email *"
               name="email"
               type="email"
               placeholder="Digite o email do colaborador"
@@ -55,7 +55,7 @@ export default function AddCollaboratorModal({ open, onClose, onAdd }) {
               errors={errors}
             />
             <InputField
-              label="Senha"
+              label="Senha *"
               name="password"
               type="password"
               placeholder="Digite a senha do colaborador"

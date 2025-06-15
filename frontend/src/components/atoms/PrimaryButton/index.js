@@ -9,6 +9,7 @@ export default function PrimaryButton({ children, onClick, sx = {}, ...props }) 
       onClick={onClick}
       sx={theme => ({
         ...styles(theme),
+        fontWeight: 'bold',
         ...sx,
       })}
       {...props}

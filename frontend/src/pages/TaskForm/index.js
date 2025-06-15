@@ -74,7 +74,7 @@ export default function TaskForm() {
 
           <Stack spacing={1}>
             <InputField
-              label="Título"
+              label="Título *"
               name="title"
               placeholder="Digite o título da tarefa"
               register={register}
@@ -88,7 +88,7 @@ export default function TaskForm() {
               errors={errors}
             />
             <SelectField
-              label="Status"
+              label="Status *"
               name="status"
               placeholder="Selecione o status"
               register={register}
@@ -97,7 +97,7 @@ export default function TaskForm() {
               options={statusOptions}
             />
             <InputField
-              label="Data de Entrega"
+              label="Data de Entrega *"
               name="due_date"
               type="date"
               register={register}
@@ -113,7 +113,7 @@ export default function TaskForm() {
               hideLabel
             />
             <InputField
-              label="URL da Imagem"
+              label="URL da Imagem *"
               name="image_url"
               placeholder="Digite a URL da imagem"
               register={register}
