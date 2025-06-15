@@ -47,10 +47,6 @@ module.exports = {
                     {
                         association: 'collaborators',
                         attributes: ['id', 'name', 'email']
-                    },
-                    {
-                        association: 'tasks',
-                        attributes: ['id', 'title', 'status', 'due_date', 'image_url']
                     }
                 ]
             });
