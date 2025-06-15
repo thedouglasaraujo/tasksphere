@@ -124,7 +124,7 @@ export default function ProjectForm() {
             <Box mt={2}>
               <Stack direction="row" spacing={2} sx={styles.buttonRow}>
                 <TextButton onClick={() => navigate(-1)}>Cancelar</TextButton>
-                <PrimaryButton label="Salvar" type="submit" />
+                <PrimaryButton type="submit">Salvar</PrimaryButton>
               </Stack>
             </Box>
           </Stack>

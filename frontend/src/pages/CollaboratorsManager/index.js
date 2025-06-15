@@ -91,14 +91,8 @@ export default function CollaboratorsManager() {
                         Colaboradores do Projeto #{id}
                     </Typography>
                     <Stack direction="row" spacing={1}>
-                        <PrimaryButton
-                            label="Adicionar Colaborador"
-                            onClick={() => setModalOpen(true)}
-                        />
-                        <PrimaryButton
-                            label="Importar Colaborador"
-                            onClick={() => setExternalModalOpen(true)}
-                        />
+                        <PrimaryButton onClick={() => setModalOpen(true)}>Adicionar Colaborador</PrimaryButton>
+                        <PrimaryButton onClick={() => setExternalModalOpen(true)} >Importar Colaborador</PrimaryButton>
                     </Stack>
                 </Box>
 

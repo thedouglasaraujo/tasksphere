@@ -78,7 +78,7 @@ export default function AddCollaboratorModal({ open, onClose, onAdd }) {
 
           <Stack direction="row" spacing={2} justifyContent="flex-end" mt={4}>
             <TextButton onClick={onClose}>Cancelar</TextButton>
-            <PrimaryButton label="Adicionar" type="submit" />
+            <PrimaryButton type="submit">Adicionar</PrimaryButton>
           </Stack>
         </form>
       </Box>

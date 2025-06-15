@@ -124,7 +124,7 @@ export default function TaskForm() {
                         <Box mt={2}>
                             <Stack direction="row" spacing={2} sx={styles.buttonRow}>
                                 <CancelButton onClick={() => navigate(-1)}>Cancelar</CancelButton>
-                                <PrimaryButton label="Salvar" type="submit" />
+                                <PrimaryButton type="submit">Salvar</PrimaryButton>
                             </Stack>
                         </Box>
                     </Stack>

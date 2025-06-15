@@ -2,7 +2,7 @@ import { Button } from '@mui/material'
 import styles from './styles'
 
 export default function PrimaryButton({
-    label,
+    children,
     onClick,
     sx = {},
     ...props
@@ -18,7 +18,7 @@ export default function PrimaryButton({
             })}
             {...props}
         >
-            {label}
+            {children}
         </Button>
     )
 }

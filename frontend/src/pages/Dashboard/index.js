@@ -42,10 +42,7 @@ export default function Dashboard() {
                     <Typography variant="h4" sx={styles.headerTitle}>
                         Meus Projetos
                     </Typography>
-                    <PrimaryButton
-                        label="Novo Projeto"
-                        onClick={() => navigate('/projects/new')}
-                    />
+                    <PrimaryButton onClick={() => navigate('/projects/new')}>Novo Projeto</PrimaryButton>
                 </Box>
 
                 {projects.length === 0 ? (

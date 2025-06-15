@@ -18,7 +18,7 @@ export default function ConfirmDialog({ open, onClose, onConfirm, message }) {
             <DialogActions>
                 <Stack direction="row" spacing={2}>
                     <TextButton onClick={onClose}>Cancelar</TextButton>
-                    <PrimaryButton label="Confirmar" onClick={onConfirm}></PrimaryButton>
+                    <PrimaryButton onClick={onConfirm}>Confirmar</PrimaryButton>
                 </Stack>
             </DialogActions>
         </Dialog>
