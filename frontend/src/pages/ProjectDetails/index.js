@@ -3,7 +3,7 @@ import { Box, Typography, Divider, Container, Stack, Pagination } from '@mui/mat
 import { useParams, useNavigate } from 'react-router-dom';
 
 import styles from './styles';
-import { getProjectById } from '../../services/projectService';
+import { getProjectById, deleteProject } from '../../services/projectService';
 import { getTasks } from '../../services/taskService';
 import LoadingIndicator from '../../components/atoms/LoadingIndicator';
 import ErrorMessage from '../../components/atoms/ErrorMessage';
@@ -13,6 +13,7 @@ import ProjectDateChips from '../../components/atoms/ProjectDateChips';
 import ProjectActionsButtons from '../../components/atoms/ProjectActionsButtons';
 import TextButton from '../../components/atoms/TextButton';
 import TaskFilter from '../../components/molecules/TaskFilter';
+import ConfirmDialog from '../../components/molecules/ConfirmDialog';
 
 export default function ProjectDetails() {
     const { id } = useParams();
@@ -29,6 +30,7 @@ export default function ProjectDetails() {
         limit: 10,
     });
 
+    const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
     const debounceTimeout = useRef(null);
 
     useEffect(() => {
@@ -66,7 +68,7 @@ export default function ProjectDetails() {
         }, 500);
 
         return () => clearTimeout(debounceTimeout.current);
-    }, [filters, id]);
+    }, [filters, id, project]);
 
     const handleFilterChange = (newFilters) => {
         setFilters((prevFilters) => ({
@@ -87,7 +89,21 @@ export default function ProjectDetails() {
     };
 
     const handleDelete = () => {
-        console.log('Excluir projeto', id);
+        setOpenConfirmDialog(true);
+    };
+
+    const handleConfirmDelete = async () => {
+        try {
+            await deleteProject(id);
+            navigate('/dashboard');
+        } catch (err) {
+            console.log('Erro ao excluir projeto:', err);
+        }
+        setOpenConfirmDialog(false);
+    };
+
+    const handleCancelDelete = () => {
+        setOpenConfirmDialog(false);
     };
 
     if (loading) return <LoadingIndicator />;
@@ -135,7 +151,7 @@ export default function ProjectDetails() {
                     <Typography variant="h6" sx={styles.title}>
                         Tarefas
                     </Typography>
-                    <TextButton onClick={() => navigate(`/projects/${id}/tasks/new`)}>+ Adicionar Tarefa</TextButton>
+                    <TextButton onClick={() => navigate(`/projects/${id}/tasks/new`)}>Adicionar Tarefa</TextButton>
                 </Box>
 
                 <TaskFilter filters={filters} onFilterChange={handleFilterChange} />
@@ -150,6 +166,13 @@ export default function ProjectDetails() {
                     />
                 </Box>
             </Container>
+
+            <ConfirmDialog
+                open={openConfirmDialog}
+                onClose={handleCancelDelete}
+                onConfirm={handleConfirmDelete}
+                message="Tem certeza de que deseja excluir este projeto?"
+            />
         </Box>
     );
 }
