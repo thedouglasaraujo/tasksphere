@@ -1,15 +1,16 @@
-import React from 'react'
-import { Chip } from '@mui/material'
+import { Chip } from '@mui/material';
 
-function getStatusColor(status) {
-    const statusMap = {
-        'Concluída': 'success',
-        'Em andamento': 'warning',
-        'Pendente': 'default',
-    }
-    return statusMap[status] || 'default'
-}
+const STATUS_CONFIG = {
+  todo: { label: 'Pendente', color: 'default' },
+  in_progress: { label: 'Em andamento', color: 'warning' },
+  done: { label: 'Concluída', color: 'success' },
+};
 
 export default function StatusChip({ status }) {
-    return <Chip label={status} color={getStatusColor(status)} />
+  const { label, color } = STATUS_CONFIG[status] || {
+    label: status,
+    color: 'default',
+  };
+
+  return <Chip label={label} color={color} />;
 }
