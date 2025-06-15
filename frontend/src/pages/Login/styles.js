@@ -40,10 +40,7 @@ const styles = {
         '&:hover': {
             bgcolor: '#3498DB',
         },
-    },
-    alertSnackbar: {
-        width: '100%',
-    },
+    }
 }
 
 export default styles

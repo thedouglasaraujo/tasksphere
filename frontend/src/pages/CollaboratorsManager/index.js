@@ -11,6 +11,7 @@ import PrimaryButton from '../../components/atoms/PrimaryButton';
 import { getCollaborators, addCollaborator, removeCollaborator } from '../../services/projectService';
 import ImportExternalCollaboratorsModal from '../../components/organisms/ImportExternalCollaboratorsModal';
 import ConfirmDialog from '../../components/molecules/ConfirmDialog';
+import { useSnackbar } from '../../contexts/SnackbarContext';
 
 export default function CollaboratorsManager() {
     const { id } = useParams();
@@ -19,6 +20,7 @@ export default function CollaboratorsManager() {
     const [externalModalOpen, setExternalModalOpen] = useState(false);
     const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
     const [collaboratorToRemove, setCollaboratorToRemove] = useState(null);
+    const { showSnackbar } = useSnackbar();
 
     const fetchCollaborators = async () => {
         try {
@@ -37,6 +39,7 @@ export default function CollaboratorsManager() {
         try {
             await addCollaborator(id, data);
             setModalOpen(false);
+            showSnackbar('Colaborador adicionado com sucesso!', 'success');
             fetchCollaborators();
         } catch (err) {
             console.log('Erro ao adicionar colaborador:', err);
@@ -57,6 +60,7 @@ export default function CollaboratorsManager() {
         try {
             await addCollaborator(id, collaboratorData);
             setExternalModalOpen(false);
+            showSnackbar('Colaborador adicionado com sucesso!', 'success');
             fetchCollaborators();
         } catch (err) {
             console.log('Erro ao adicionar colaborador externo:', err);
@@ -66,9 +70,10 @@ export default function CollaboratorsManager() {
     const handleConfirmDelete = async () => {
         try {
             await removeCollaborator(id, collaboratorToRemove);
+            showSnackbar('Colaborador removido com sucesso!', 'success');
             fetchCollaborators();
         } catch (err) {
-            console.log('Erro ao remover colaborador:', err);
+            showSnackbar('Erro ao remover colaborador', 'error');
         } finally {
             setConfirmDialogOpen(false);
             setCollaboratorToRemove(null);

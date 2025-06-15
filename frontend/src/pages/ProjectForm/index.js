@@ -12,11 +12,13 @@ import PrimaryButton from '../../components/atoms/PrimaryButton';
 import TextButton from '../../components/atoms/TextButton';
 import styles from './styles';
 import { getProjectById, updateProject, createProject } from '../../services/projectService';
+import { useSnackbar } from '../../contexts/SnackbarContext';
 
 export default function ProjectForm() {
   const { id } = useParams();
   const navigate = useNavigate();
   const isEdit = Boolean(id);
+  const { showSnackbar } = useSnackbar();
 
   const {
     register,
@@ -46,12 +48,14 @@ export default function ProjectForm() {
     try {
       if (isEdit) {
         await updateProject(id, data);
+        showSnackbar('Projeto atualizado com sucesso!', 'success');
       } else {
         await createProject(data);
+        showSnackbar('Projeto criado com sucesso!', 'success');
       }
       navigate('/dashboard');
     } catch (err) {
-      console.log('Erro ao salvar o projeto:', err);
+      showSnackbar('Erro ao salvar o projeto', 'error');
     }
   };
 

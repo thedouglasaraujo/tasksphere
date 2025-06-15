@@ -1,31 +1,25 @@
-import React, { useState } from 'react'
 import { Box, Container, Paper, Typography } from '@mui/material'
 import { useForm } from 'react-hook-form'
 
 import LoginForm from '../../components/molecules/LoginForm'
-import AlertSnackbar from '../../components/atoms/AlertSnackbar'
 import styles from './styles'
 import useAuth from '../../hooks/useAuth'
 import { loginRequest } from '../../services/authService'
+import { useSnackbar } from '../../contexts/SnackbarContext';
 
 export default function Login() {
     const { register, handleSubmit, formState: { errors } } = useForm()
-    const [errorOpen, setErrorOpen] = useState(false)
     const { login } = useAuth()
+    const { showSnackbar } = useSnackbar();
 
     const onSubmit = async (data) => {
         try {
             const result = await loginRequest(data);
             login(result.token, result.user);
         } catch (err) {
-            setErrorOpen(true);
+            showSnackbar('Email ou senha incorretos!', 'error');
         }
     };
-
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') return
-        setErrorOpen(false)
-    }
 
     return (
         <Box sx={styles.containerBox}>
@@ -48,13 +42,6 @@ export default function Login() {
                         sxLabelWithMarginTop={styles.labelWithMarginTop}
                     />
                 </Paper>
-
-                <AlertSnackbar
-                    open={errorOpen}
-                    onClose={handleClose}
-                    severity="error"
-                    message="Email ou senha incorretos!"
-                />
             </Container>
         </Box>
     )

@@ -8,6 +8,7 @@ import PrimaryButton from '../../components/atoms/PrimaryButton';
 import CancelButton from '../../components/atoms/TextButton';
 import styles from './styles';
 import { getTaskById, updateTask, createTask } from '../../services/taskService';
+import { useSnackbar } from '../../contexts/SnackbarContext';
 
 const statusOptions = [
     { value: 'todo', label: 'Pendente' },
@@ -19,6 +20,7 @@ export default function TaskForm() {
     const { projectId, taskId } = useParams();
     const navigate = useNavigate();
     const isEdit = Boolean(taskId);
+    const { showSnackbar } = useSnackbar();
 
     const {
         register,
@@ -47,13 +49,15 @@ export default function TaskForm() {
 
             if (isEdit) {
                 await updateTask(taskId, taskData);
+                showSnackbar('Tarefa atualizada com sucesso!', 'success');
             } else {
                 await createTask(taskData);
+                showSnackbar('Tarefa criada com sucesso!', 'success');
             }
 
-            navigate(`/projects/${projectId}`);
+            navigate(-1);
         } catch (err) {
-            console.log('Erro ao salvar a tarefa:', err);
+            showSnackbar('Erro ao salvar a tarefa', 'error');
         }
     };
 
