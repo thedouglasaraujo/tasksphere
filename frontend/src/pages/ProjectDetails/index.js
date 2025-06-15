@@ -1,8 +1,8 @@
-import { Box, Container, Divider, Pagination, Stack, Typography } from '@mui/material';
+import { Box, Container, Divider, Pagination, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { useTheme } from '@mui/material/styles';
 import ErrorMessage from '~/components/atoms/ErrorMessage';
 import LoadingIndicator from '~/components/atoms/LoadingIndicator';
 import ProjectActionsButtons from '~/components/atoms/ProjectActionsButtons';
@@ -13,7 +13,7 @@ import ConfirmDialog from '~/components/molecules/ConfirmDialog';
 import TaskFilter from '~/components/molecules/TaskFilter';
 import TaskList from '~/components/organisms/TaskList';
 import { deleteProject, getProjectById } from '~/services/projectService';
-import { getTasks } from '~/services/taskService';
+import { deleteTask, getTasks } from '~/services/taskService';
 import stylesFn from './styles';
 
 export default function ProjectDetails() {
@@ -26,14 +26,10 @@ export default function ProjectDetails() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [filters, setFilters] = useState({
-    title: '',
-    status: '',
-    page: 1,
-    limit: 10,
-  });
+  const [filters, setFilters] = useState({ title: '', status: '', page: 1, limit: 10 });
+  const [openProjectDialog, setOpenProjectDialog] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState(null);
 
-  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
   const debounceTimeout = useRef(null);
 
   useEffect(() => {
@@ -66,47 +62,38 @@ export default function ProjectDetails() {
 
     if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
 
-    debounceTimeout.current = setTimeout(() => {
-      fetchTasks();
-    }, 500);
+    debounceTimeout.current = setTimeout(fetchTasks, 500);
 
     return () => clearTimeout(debounceTimeout.current);
   }, [filters, id, project]);
 
-  const handleFilterChange = newFilters => {
-    setFilters(prevFilters => ({
-      ...prevFilters,
-      ...newFilters,
-    }));
-  };
+  const handleFilterChange = newFilters => setFilters(prev => ({ ...prev, ...newFilters }));
 
-  const handlePageChange = (_, value) => {
-    setFilters(prevFilters => ({
-      ...prevFilters,
-      page: value,
-    }));
-  };
+  const handlePageChange = (_, value) => setFilters(prev => ({ ...prev, page: value }));
 
-  const handleEdit = () => {
-    navigate(`/projects/${id}/edit`);
-  };
-
-  const handleDelete = () => {
-    setOpenConfirmDialog(true);
-  };
-
-  const handleConfirmDelete = async () => {
+  const handleEdit = () => navigate(`/projects/${id}/edit`);
+  const handleDelete = () => setOpenProjectDialog(true);
+  const handleCancelProjectDelete = () => setOpenProjectDialog(false);
+  const handleConfirmProjectDelete = async () => {
     try {
       await deleteProject(id);
       navigate('/dashboard');
     } catch (err) {
-      console.log('Erro ao excluir projeto:', err);
+      console.error('Erro ao excluir projeto:', err);
     }
-    setOpenConfirmDialog(false);
+    setOpenProjectDialog(false);
   };
 
-  const handleCancelDelete = () => {
-    setOpenConfirmDialog(false);
+  const handleDeleteTask = taskId => setTaskToDelete(taskId);
+  const handleCancelTaskDelete = () => setTaskToDelete(null);
+  const handleConfirmTaskDelete = async () => {
+    try {
+      await deleteTask(taskToDelete);
+      setFilters(prev => ({ ...prev }));
+    } catch (err) {
+      console.error('Erro ao excluir tarefa:', err);
+    }
+    setTaskToDelete(null);
   };
 
   if (loading) return <LoadingIndicator />;
@@ -115,29 +102,24 @@ export default function ProjectDetails() {
   return (
     <Box sx={styles.containerBox}>
       <Container maxWidth={false} sx={styles.contentContainer}>
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography variant="h4" sx={styles.headerTitle}>
             {project.name}
           </Typography>
-
-          <Stack direction="row" spacing={1}>
-            {project.canManage && (
-              <ProjectActionsButtons onEdit={handleEdit} onDelete={handleDelete} />
-            )}
-          </Stack>
+          {project.canManage && (
+            <ProjectActionsButtons onEdit={handleEdit} onDelete={handleDelete} />
+          )}
         </Box>
 
         <Typography sx={styles.projectDescription}>
           {project.description || 'Sem descrição'}
         </Typography>
-
         <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
           <ProjectDateChips startDate={project.start_date} endDate={project.end_date} />
         </Box>
-
         <Divider sx={{ my: 4 }} />
 
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography variant="h6" sx={styles.title}>
             Colaboradores
           </Typography>
@@ -147,12 +129,10 @@ export default function ProjectDetails() {
             </TextButton>
           )}
         </Box>
-
         <CollaboratorsList collaborators={project.collaborators} />
-
         <Divider sx={{ my: 4 }} />
 
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography variant="h6" sx={styles.title}>
             Tarefas
           </Typography>
@@ -160,9 +140,8 @@ export default function ProjectDetails() {
             Adicionar Tarefa
           </TextButton>
         </Box>
-
         <TaskFilter filters={filters} onFilterChange={handleFilterChange} />
-        <TaskList tasks={tasks.data} />
+        <TaskList tasks={tasks.data} onDeleteTask={handleDeleteTask} />
 
         <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
           <Pagination
@@ -175,10 +154,16 @@ export default function ProjectDetails() {
       </Container>
 
       <ConfirmDialog
-        open={openConfirmDialog}
-        onClose={handleCancelDelete}
-        onConfirm={handleConfirmDelete}
+        open={openProjectDialog}
+        onClose={handleCancelProjectDelete}
+        onConfirm={handleConfirmProjectDelete}
         message="Tem certeza de que deseja excluir este projeto?"
+      />
+      <ConfirmDialog
+        open={Boolean(taskToDelete)}
+        onClose={handleCancelTaskDelete}
+        onConfirm={handleConfirmTaskDelete}
+        message="Tem certeza de que deseja excluir esta tarefa?"
       />
     </Box>
   );

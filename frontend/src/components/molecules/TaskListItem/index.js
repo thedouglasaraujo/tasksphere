@@ -1,3 +1,4 @@
+import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Box, Card, CardContent, ListItem, ListItemText, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
@@ -7,7 +8,7 @@ import TextButton from '~/components/atoms/TextButton';
 import { formatDateBR } from '~/utils/dateUtils';
 import stylesFn from './styles';
 
-export default function TaskListItem({ task }) {
+export default function TaskListItem({ task, onDelete }) {
   const navigate = useNavigate();
   const theme = useTheme();
   const styles = stylesFn(theme);
@@ -30,6 +31,11 @@ export default function TaskListItem({ task }) {
             <TextButton onClick={() => navigate(`/tasks/${task.id}/edit`)}>
               <EditIcon />
             </TextButton>
+            {onDelete && (
+              <TextButton onClick={() => onDelete(task.id)}>
+                <DeleteIcon />
+              </TextButton>
+            )}
           </Box>
         </CardContent>
       </Card>
