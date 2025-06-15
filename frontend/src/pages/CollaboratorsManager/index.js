@@ -10,12 +10,15 @@ import AddCollaboratorModal from '../../components/organisms/AddCollaboratorModa
 import PrimaryButton from '../../components/atoms/PrimaryButton';
 import { getCollaborators, addCollaborator, removeCollaborator } from '../../services/projectService';
 import ImportExternalCollaboratorsModal from '../../components/organisms/ImportExternalCollaboratorsModal';
+import ConfirmDialog from '../../components/molecules/ConfirmDialog';
 
 export default function CollaboratorsManager() {
     const { id } = useParams();
     const [collaborators, setCollaborators] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [externalModalOpen, setExternalModalOpen] = useState(false);
+    const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
+    const [collaboratorToRemove, setCollaboratorToRemove] = useState(null);
 
     const fetchCollaborators = async () => {
         try {
@@ -40,13 +43,9 @@ export default function CollaboratorsManager() {
         }
     };
 
-    const handleRemoveCollaborator = async (userId) => {
-        try {
-            await removeCollaborator(id, userId);
-            fetchCollaborators();
-        } catch (err) {
-            console.log('Erro ao remover colaborador:', err);
-        }
+    const handleRemoveCollaborator = (userId) => {
+        setCollaboratorToRemove(userId);
+        setConfirmDialogOpen(true);
     };
 
     const handleAddExternalCollaborator = async (collaborator) => {
@@ -61,6 +60,18 @@ export default function CollaboratorsManager() {
             fetchCollaborators();
         } catch (err) {
             console.log('Erro ao adicionar colaborador externo:', err);
+        }
+    };
+
+    const handleConfirmDelete = async () => {
+        try {
+            await removeCollaborator(id, collaboratorToRemove);
+            fetchCollaborators();
+        } catch (err) {
+            console.log('Erro ao remover colaborador:', err);
+        } finally {
+            setConfirmDialogOpen(false);
+            setCollaboratorToRemove(null);
         }
     };
 
@@ -86,7 +97,7 @@ export default function CollaboratorsManager() {
                 <Divider sx={{ my: 4 }} />
 
                 <List>
-                    {collaborators.map(c => (
+                    {collaborators.map((c) => (
                         <ListItem
                             key={c.id}
                             secondaryAction={
@@ -111,6 +122,13 @@ export default function CollaboratorsManager() {
                 open={externalModalOpen}
                 onClose={() => setExternalModalOpen(false)}
                 onAdd={handleAddExternalCollaborator}
+            />
+
+            <ConfirmDialog
+                open={confirmDialogOpen}
+                onClose={() => setConfirmDialogOpen(false)}
+                onConfirm={handleConfirmDelete}
+                message="Tem certeza de que deseja remover este colaborador?"
             />
         </Box>
     );
