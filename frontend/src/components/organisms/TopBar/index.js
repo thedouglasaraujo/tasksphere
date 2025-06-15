@@ -9,13 +9,15 @@ export default function TopBar() {
   return (
     <AppBar position="static" color="primary" elevation={2}>
       <Toolbar>
-        <Box sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          width: '100%',
-          px: 3
-        }}>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            width: '100%',
+            px: 3,
+          }}
+        >
           <Typography
             variant="h5"
             component={RouterLink}
