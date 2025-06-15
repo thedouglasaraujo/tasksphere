@@ -1,5 +1,11 @@
-import AppRoutes from './routes/Routes'
+import React from 'react';
+import { SnackbarProvider } from './contexts/SnackbarContext';
+import AppRoutes from './routes/Routes';
 
 export default function App() {
-  return <AppRoutes />
+  return (
+    <SnackbarProvider>
+      <AppRoutes />
+    </SnackbarProvider>
+  );
 }
