@@ -1,7 +1,6 @@
 const errorPageStyles = {
     container: {
         minHeight: '100vh',
-        background: '#f0f4f8',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
