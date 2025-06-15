@@ -95,7 +95,7 @@ export default function CollaboratorsManager() {
       <Container maxWidth={false} sx={styles.contentContainer}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Typography variant="h4" sx={styles.headerTitle}>
-            Colaboradores do Projeto #{id}
+            Colaboradores
           </Typography>
           <Stack direction="row" spacing={1}>
             <PrimaryButton onClick={() => setModalOpen(true)}>Adicionar Colaborador</PrimaryButton>
