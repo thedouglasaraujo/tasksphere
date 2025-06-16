@@ -130,13 +130,12 @@ Crie um arquivo .env dentro da pasta backend com as variáveis de ambiente neces
   <img src="images/nova-tarefa-validacoes.png">
   <img src="images/nova-tarefa-preenchido.png">
   <img src="images/nova-tarefa-criada.png">
-  <img src="images/editar-tarefa.png">
   <img src="images/tarefas.png">
   <img src="images/tarefas-paginação.png">
-  <img src="images/editar-tarefa.png">
   <img src="images/filtro-em-andamento.png">
   <img src="images/filtro-concluidas.png">
   <img src="images/filtro-busca.png">
+  <img src="images/editar-tarefa.png">
   <img src="images/tarefa-atualizada.png">
   <img src="images/excluir-projeto.png">
   <img src="images/excluir-tarefa.png">
