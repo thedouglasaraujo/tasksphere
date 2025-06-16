@@ -12,6 +12,7 @@ import CollaboratorsList from '~/components/molecules/CollaboratorsList';
 import ConfirmDialog from '~/components/molecules/ConfirmDialog';
 import TaskFilter from '~/components/molecules/TaskFilter';
 import TaskList from '~/components/organisms/TaskList';
+import { useSnackbar } from '~/contexts/SnackbarContext';
 import { deleteProject, getProjectById } from '~/services/projectService';
 import { deleteTask, getTasks } from '~/services/taskService';
 import stylesFn from './styles';
@@ -29,6 +30,7 @@ export default function ProjectDetails() {
   const [filters, setFilters] = useState({ title: '', status: '', page: 1, limit: 10 });
   const [openProjectDialog, setOpenProjectDialog] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
+  const { showSnackbar } = useSnackbar();
 
   const debounceTimeout = useRef(null);
 
@@ -78,8 +80,9 @@ export default function ProjectDetails() {
     try {
       await deleteProject(id);
       navigate('/dashboard');
+      showSnackbar('Projeto excluido com sucesso!', 'success');
     } catch (err) {
-      console.error('Erro ao excluir projeto:', err);
+      showSnackbar('Erro ao excluir projeto', 'error');
     }
     setOpenProjectDialog(false);
   };
@@ -90,8 +93,9 @@ export default function ProjectDetails() {
     try {
       await deleteTask(taskToDelete);
       setFilters(prev => ({ ...prev }));
+      showSnackbar('Tarefa excluida com sucesso!', 'success');
     } catch (err) {
-      console.error('Erro ao excluir tarefa:', err);
+      showSnackbar('Erro ao excluir tarefa', 'error');
     }
     setTaskToDelete(null);
   };
