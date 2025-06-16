@@ -61,7 +61,7 @@ Aplicação de **gestão colaborativa de projetos** desenvolvida com React, com 
 
 ### 📄 Configuração do .env
 
-Crie um arquivo .env dentro da pasta backend com as variáveis de ambiente necessárias. Você pode usar o arquivo .env.example disponível no projeto como base.
+Crie um arquivo .env dentro da pasta backend com as variáveis de ambiente necessárias.
 
 ## 🚀 Funcionalidades Principais
 
@@ -136,12 +136,15 @@ Crie um arquivo .env dentro da pasta backend com as variáveis de ambiente neces
   <img src="images/editar-tarefa.png">
   <img src="images/filtro-em-andamento.png">
   <img src="images/filtro-concluidas.png">
-  <img src="images/filtro-em-andamento.png">
   <img src="images/filtro-busca.png">
   <img src="images/tarefa-atualizada.png">
   <img src="images/excluir-projeto.png">
+  <img src="images/excluir-tarefa.png">
+  <img src="images/tarefa-excluida.png">
   <img src="images/tela-erro.png">
   <img src="images/tela-forbidden.png">
   <img src="images/tela-loading.png">
+  <img src="images/visao-colaborador.png">
+  <img src="images/tarefa-criada-colaborador.png">
 </p>
 
